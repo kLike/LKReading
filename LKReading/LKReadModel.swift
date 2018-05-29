@@ -14,6 +14,10 @@ struct LKReadModel: Codable {
 }
 
 struct LKReadChapterModel: Codable {
-    var chapterId: String?
-    var chapterTitle: String?
+    var id: String?
+    var title: String?
+    var content: String?
+    var nextChapterId: String?
+    var lastChapterId: String?
+    var pageRangeArr: [NSRange]?
 }

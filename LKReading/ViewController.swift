@@ -21,7 +21,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func beginReading(_ sender: UIButton) {
-        present(LKReadViewController(), animated: true, completion: nil)
+        if let urlStr = Bundle.main.path(forResource: "花开似瑾", ofType: "txt") {
+            let readVc = LKReadViewController()
+            readVc.bookModel = LKBookManager().loadBook(bookUrlStr: urlStr)
+            present(readVc, animated: true, completion: nil)
+        }
+        
     }
     
 }

@@ -16,6 +16,8 @@
 		0E666DDA20BBED50009378A2 /* LKReadBookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E666DD920BBED50009378A2 /* LKReadBookManager.swift */; };
 		0E666DDC20BBEEB7009378A2 /* LKReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E666DDB20BBEEB7009378A2 /* LKReadViewController.swift */; };
 		0E666DDE20BBF252009378A2 /* LKReadSingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E666DDD20BBF252009378A2 /* LKReadSingleViewController.swift */; };
+		0EAB2E4120BD310B00E49805 /* LKReadTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */; };
+		0EAB2E4320BD4F0A00E49805 /* 花开似瑾.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		0E666DD920BBED50009378A2 /* LKReadBookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadBookManager.swift; sourceTree = "<group>"; };
 		0E666DDB20BBEEB7009378A2 /* LKReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadViewController.swift; sourceTree = "<group>"; };
 		0E666DDD20BBF252009378A2 /* LKReadSingleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadSingleViewController.swift; sourceTree = "<group>"; };
+		0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadTheme.swift; sourceTree = "<group>"; };
+		0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "花开似瑾.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,12 +66,14 @@
 		0E666DC420BBE782009378A2 /* LKReading */ = {
 			isa = PBXGroup;
 			children = (
+				0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */,
 				0E666DC520BBE782009378A2 /* AppDelegate.swift */,
 				0E666DC720BBE782009378A2 /* ViewController.swift */,
 				0E666DD720BBE93A009378A2 /* LKReadModel.swift */,
 				0E666DD920BBED50009378A2 /* LKReadBookManager.swift */,
 				0E666DDB20BBEEB7009378A2 /* LKReadViewController.swift */,
 				0E666DDD20BBF252009378A2 /* LKReadSingleViewController.swift */,
+				0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */,
 				0E666DC920BBE782009378A2 /* Main.storyboard */,
 				0E666DCC20BBE782009378A2 /* Assets.xcassets */,
 				0E666DCE20BBE782009378A2 /* LaunchScreen.storyboard */,
@@ -136,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E666DD020BBE782009378A2 /* LaunchScreen.storyboard in Resources */,
+				0EAB2E4320BD4F0A00E49805 /* 花开似瑾.txt in Resources */,
 				0E666DCD20BBE782009378A2 /* Assets.xcassets in Resources */,
 				0E666DCB20BBE782009378A2 /* Main.storyboard in Resources */,
 			);
@@ -151,6 +158,7 @@
 				0E666DDE20BBF252009378A2 /* LKReadSingleViewController.swift in Sources */,
 				0E666DDC20BBEEB7009378A2 /* LKReadViewController.swift in Sources */,
 				0E666DC820BBE782009378A2 /* ViewController.swift in Sources */,
+				0EAB2E4120BD310B00E49805 /* LKReadTheme.swift in Sources */,
 				0E666DC620BBE782009378A2 /* AppDelegate.swift in Sources */,
 				0E666DD820BBE93A009378A2 /* LKReadModel.swift in Sources */,
 				0E666DDA20BBED50009378A2 /* LKReadBookManager.swift in Sources */,
