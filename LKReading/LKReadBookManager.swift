@@ -14,14 +14,14 @@ class LKBookManager: NSObject {
     func loadBook(bookUrlStr: String) -> LKReadModel {
         var readModel = LKReadModel()
         do {
-            readModel.chapterArr = parsingLocalBook(bookContent: try String.init(contentsOfFile: bookUrlStr, encoding: .utf8))
+            readModel.chapters = parsingLocalBook(bookContent: try String.init(contentsOfFile: bookUrlStr, encoding: .utf8))
         } catch { }
         return readModel
     }
     
-    func parsingLocalBook(bookContent: String) -> [LKReadChapterModel] {
+    func parsingLocalBook(bookContent: String) -> [String: LKReadChapterModel] {
         let bookContentNSStr = bookContent as NSString
-        var chapterArr = [LKReadChapterModel]()
+        var chapterArr = [String: LKReadChapterModel]()
         let pattern = "第[0-9一二三四五六七八九十百千]*[章回].*"
         if let expression = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
             let chapterResult = expression.matches(in: bookContent, options: .reportProgress, range: NSMakeRange(0, bookContentNSStr.length))
@@ -46,9 +46,9 @@ class LKBookManager: NSObject {
                         prefaceChapterModel.nextChapterId = "0"
                         prefaceChapterModel.lastChapterId = "start"
                         if let content = prefaceChapterModel.content {
-                           prefaceChapterModel.pageRangeArr = divideChapter(content: content)
+                           prefaceChapterModel.pageContentArr = divideChapter(content: content)
                         }
-                        chapterArr.append(prefaceChapterModel)
+                        chapterArr[prefaceChapterModel.id!] = prefaceChapterModel
                     } else {
                         chapterModel.lastChapterId = "start"
                     }
@@ -57,16 +57,17 @@ class LKBookManager: NSObject {
                     chapterModel.nextChapterId = "end"
                 }
                 if let content = chapterModel.content {
-                    chapterModel.pageRangeArr = divideChapter(content: content)
+                    chapterModel.pageContentArr = divideChapter(content: content)
                 }
-                chapterArr.append(chapterModel)
+                chapterArr[chapterModel.id!] = chapterModel
             })
         }
         return chapterArr
     }
     
-    func divideChapter(content: String) -> [NSRange] {
-        var pageRangeArr = [NSRange]()
+    func divideChapter(content: String) -> [String] {
+        let contenNSStr = content as NSString
+        var pageStrArr = [String]()
         let contentAtr = NSMutableAttributedString(string: content, attributes: LKReadTheme.share.getReadTextAttrs())
         let frameSetter = CTFramesetterCreateWithAttributedString(contentAtr as CFAttributedString)
         let path = CGPath(rect: LKReadTheme.share.edgeRect, transform: nil)
@@ -75,10 +76,10 @@ class LKBookManager: NSObject {
         while(range.location + range.length < contentAtr.length) {
             let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(offset, 0), path, nil)
             range = CTFrameGetVisibleStringRange(frame)
-            pageRangeArr.append(NSMakeRange(offset, range.length))
+            pageStrArr.append(contenNSStr.substring(with: NSMakeRange(offset, range.length)))
             offset += range.length
         }
-        return pageRangeArr
+        return pageStrArr
     }
     
 }

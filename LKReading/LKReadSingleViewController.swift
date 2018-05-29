@@ -10,6 +10,8 @@ import UIKit
 
 class LKReadSingleViewController: UIViewController {
     
+    var position = ReadingPosition()
+    
     lazy var contentView: LKReadSingleView = {
         let contentView = LKReadSingleView(frame: view.bounds)
         view.addSubview(contentView)

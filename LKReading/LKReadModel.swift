@@ -10,7 +10,7 @@ import Foundation
 
 struct LKReadModel: Codable {
     var bookId: String?
-    var chapterArr: [LKReadChapterModel]?
+    var chapters: [String: LKReadChapterModel]?
 }
 
 struct LKReadChapterModel: Codable {
@@ -19,5 +19,5 @@ struct LKReadChapterModel: Codable {
     var content: String?
     var nextChapterId: String?
     var lastChapterId: String?
-    var pageRangeArr: [NSRange]?
+    var pageContentArr: [String]?
 }
