@@ -20,21 +20,20 @@ class LKBookManager: NSObject {
     }
     
     func parsingLocalBook(bookContent: String) -> [String: LKReadChapterModel] {
+        print("parsingLocalBookStart: \(Date().timeIntervalSince1970)")
         let bookContentNSStr = bookContent as NSString
         var chapterArr = [String: LKReadChapterModel]()
         let pattern = "第[0-9一二三四五六七八九十百千]*[章回].*"
         if let expression = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
             let chapterResult = expression.matches(in: bookContent, options: .reportProgress, range: NSMakeRange(0, bookContentNSStr.length))
+            print("matchEnd: \(Date().timeIntervalSince1970)")
             chapterResult.enumerated().forEach({ (index, chapterEle) in
-                guard index < 50 else {
-                    return
-                }
-                print("解析(\(index)/\(chapterResult.count))...")
+//                print("解析(\(index)/\(chapterResult.count))...")
                 let nextRange = (index == chapterResult.count - 1) ? NSMakeRange(bookContentNSStr.length, 0) : chapterResult[index + 1].range
                 var chapterModel = LKReadChapterModel()
                 chapterModel.id = String(index)
                 chapterModel.title = bookContentNSStr.substring(with: chapterEle.range)
-                chapterModel.content = bookContentNSStr.substring(with: NSMakeRange(chapterEle.range.location, nextRange.location))
+                chapterModel.content = bookContentNSStr.substring(with: NSMakeRange(chapterEle.range.location, nextRange.location - chapterEle.range.location))
                 chapterModel.lastChapterId = String(index - 1)
                 chapterModel.nextChapterId = String(index + 1)
                 if index == 0 {
@@ -62,6 +61,7 @@ class LKBookManager: NSObject {
                 chapterArr[chapterModel.id!] = chapterModel
             })
         }
+        print("divideChapterAllEnd: \(Date().timeIntervalSince1970)")
         return chapterArr
     }
     

@@ -11,6 +11,7 @@ import Foundation
 struct LKReadModel: Codable {
     var bookId: String?
     var chapters: [String: LKReadChapterModel]?
+    var fisrtChapterId: String?
 }
 
 struct LKReadChapterModel: Codable {
