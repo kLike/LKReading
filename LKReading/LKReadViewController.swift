@@ -28,11 +28,28 @@ class LKReadViewController: UIViewController {
         addChildViewController(page)
         return page
     }()
+    
+    lazy var menuView: LKReadMenuView = {
+        let mView = Bundle.main.loadNibNamed("LKReadMenuView", owner: nil, options: nil)?.first as! LKReadMenuView
+        mView.frame = view.bounds
+        mView.delegate = self
+        view.addSubview(mView)
+        return mView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(pageViewController.view)
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapView(ges:))))
         loadBook()
+    }
+    
+    @objc func tapView(ges: UITapGestureRecognizer) {
+        let point = ges.location(in: view)
+        if (kScreenW / 4 ... kScreenW / 4 * 3).contains(point.x) && !menuView.showing {
+            menuView.show()
+        }
     }
 
     private func loadBook() {
@@ -191,6 +208,14 @@ extension LKReadViewController: UIPageViewControllerDelegate {
                 readingPosition = readingVc.position
             }
         }
+    }
+    
+}
+
+extension LKReadViewController: LKReadMenuViewDelegate {
+    
+    func exitReading() {
+        dismiss(animated: true, completion: nil)
     }
     
 }

@@ -16,7 +16,7 @@ struct LKReadTheme {
     
     static let share = LKReadTheme()
     
-    var edgeRect: CGRect = CGRect(x: 15, y: 100, width: kScreenW - 30, height: kScreenH - 200)
+    var edgeRect: CGRect = CGRect(x: 15, y: 40, width: kScreenW - 30, height: kScreenH - 40 - 64)
     
     var fontSize: CGFloat = 15
     var textColor: UIColor = UIColor.black
