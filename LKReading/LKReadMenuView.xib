@@ -299,7 +299,7 @@
                             <rect key="frame" x="0.0" y="49" width="185" height="618"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </tableView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvP-Wf-hYd">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvP-Wf-hYd">
                             <rect key="frame" x="0.0" y="0.0" width="185" height="49"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="49" id="Gxk-bY-ZNA"/>
@@ -346,10 +346,12 @@
                 <outlet property="back4" destination="zdJ-IP-Ik8" id="Gu8-xx-6SH"/>
                 <outlet property="back5" destination="NiU-Ct-gUa" id="ofm-ai-O69"/>
                 <outlet property="back6" destination="JAL-DD-Ckv" id="Tcb-7u-Q1d"/>
+                <outlet property="bookNameLab" destination="rvP-Wf-hYd" id="hGY-Cm-zA8"/>
+                <outlet property="bookNameLabTop" destination="2Hr-KS-MFj" id="YeK-Yj-N65"/>
                 <outlet property="chapterView" destination="kGT-so-4wA" id="Cmz-rd-RLa"/>
                 <outlet property="chapterViewH" destination="RYR-3M-IAp" id="JHC-YK-BYx"/>
                 <outlet property="directoriesView" destination="zpL-1E-Yb6" id="T6i-HJ-EIy"/>
-                <outlet property="directoriesViewW" destination="IIN-Jb-jWt" id="nq3-d3-Bug"/>
+                <outlet property="directoriesViewW" destination="IIN-Jb-jWt" id="7bJ-pE-N0G"/>
                 <outlet property="fontLab" destination="MQe-xr-DLV" id="BE4-XS-6Bz"/>
                 <outlet property="lightSlider" destination="YWt-30-Sh8" id="NIT-Eg-H1T"/>
                 <outlet property="navView" destination="1a2-XA-8L7" id="UUv-HH-VBz"/>
@@ -360,8 +362,9 @@
                 <outlet property="pageStack" destination="Yqa-4s-rdP" id="iPc-KE-xNm"/>
                 <outlet property="setView" destination="8Sc-cJ-euy" id="uoM-GR-0hh"/>
                 <outlet property="setViewH" destination="ml9-65-Ewg" id="red-Js-AY9"/>
+                <outlet property="titleTabView" destination="PEV-wh-pNd" id="857-gZ-1WY"/>
             </connections>
-            <point key="canvasLocation" x="-223.5" y="12.5"/>
+            <point key="canvasLocation" x="-395" y="19"/>
         </view>
     </objects>
     <resources>

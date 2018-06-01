@@ -17,8 +17,11 @@ class LKReadViewController: UIViewController {
     
     var bookUrlStr: String?
     var bookModel: LKReadModel?
-    var readingPosition = ReadingPosition()
-    var pageFlag = 0
+    var isReverseSide = false
+    var readingVc = LKReadSingleViewController()
+    var readingPosition: ReadingPosition {
+        return readingVc.position
+    }
     
     lazy var pageViewController: UIPageViewController = {
         let page = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
@@ -26,22 +29,29 @@ class LKReadViewController: UIViewController {
         page.dataSource = self
         page.delegate = self
         addChildViewController(page)
+        page.setViewControllers([readingVc], direction: .forward, animated: true, completion: nil)
         return page
     }()
     
     lazy var menuView: LKReadMenuView = {
         let mView = Bundle.main.loadNibNamed("LKReadMenuView", owner: nil, options: nil)?.first as! LKReadMenuView
         mView.frame = view.bounds
+        mView.bookNameLab.text = bookModel?.bookId
         mView.delegate = self
+        if let chapterTitles = bookModel?.chapterTitles {
+            mView.titlesArr = chapterTitles
+        }
         view.addSubview(mView)
         return mView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(pageViewController.view)
         view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapView(ges:))))
+        let showMenuTap = UITapGestureRecognizer(target: self, action: #selector(tapView(ges:)))
+        showMenuTap.delegate = self
+        view.addGestureRecognizer(showMenuTap)
         loadBook()
     }
     
@@ -54,71 +64,100 @@ class LKReadViewController: UIViewController {
 
     private func loadBook() {
         if let bookUrlStr = bookUrlStr {
-            bookModel = LKBookManager().loadBook(bookUrlStr: bookUrlStr)
-            let contentVc = LKReadSingleViewController()
-            if let firstChapter = bookModel?.chapters?.first?.value {
-                contentVc.contentView.content = firstChapter.content ?? "null"
-                if let firstChapterId = firstChapter.id {
-                    contentVc.position = ReadingPosition(chapterId: firstChapterId, page: 0)
-                    readingPosition = contentVc.position
+            LKBookManager().loadBook(bookUrlStr: bookUrlStr, advanceBack: { (readModel) in
+                self.bookModel = readModel
+                self.readChapter(chapterId: readModel.chapterTitles?.first?.id)
+            }, completeBack: { (readModel) in
+                self.bookModel = readModel
+                if let chapterTitles = self.bookModel?.chapterTitles {
+                    self.menuView.titlesArr = chapterTitles
                 }
-            }
-            pageViewController.setViewControllers([contentVc], direction: .forward, animated: true, completion: nil)
+//                self.showBook()
+            })
         }
     }
     
-    private func findNextPage(reviseReadingPosition: Bool) -> String? {
+    private func readChapter(chapterId: String? = nil, page: Int = 0) {
+        guard let chapterId = chapterId, let chapterContent = bookModel?.chapters?[chapterId]?.pageContentArr?[page] else {
+            print("章节不存在...")
+            return
+        }
+        readingVc.contentView.content = chapterContent
+        readingVc.position = ReadingPosition(chapterId: chapterId, page: page)
+        isReverseSide = false
+    }
+    
+    private func findNextPage() -> LKReadSingleViewController? {
         if let chapterModel = bookModel?.chapters?[readingPosition.chapterId] {
+            if isReverseSide {
+                //背面
+                let contentVc = LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page])
+                return reversalCotentVc(originalVc: contentVc)
+            }
             if readingPosition.page + 1 >= (chapterModel.pageContentArr?.count ?? 0) {
                 //某一章最后一页
                 guard chapterModel.lastChapterId != "end" else {
                     //最后一章最后一页
+                    isReverseSide = false
                     return nil
                 }
-                if let nextChapterId = chapterModel.nextChapterId, let nextChapterModel = bookModel?.chapters?[nextChapterId] {
-                    if reviseReadingPosition {
-                        readingPosition.chapterId = nextChapterModel.id ?? ""
-                        readingPosition.page = 0
-                        return nextChapterModel.pageContentArr?.first
-                    }
-                    return chapterModel.pageContentArr?.last
+                guard let nextChapterId = chapterModel.nextChapterId,
+                    let nextChapterModel = bookModel?.chapters?[nextChapterId],
+                    let nextContent = nextChapterModel.pageContentArr?.first else {
+                        return nil
                 }
+                return LKReadSingleViewController(content: nextContent,
+                                                  position: ReadingPosition(chapterId: nextChapterModel.id ?? "", page: 0))
             } else {
-                if reviseReadingPosition {
-                    readingPosition.chapterId = chapterModel.id ?? ""
-                    readingPosition.page += 1
-                }
-                return chapterModel.pageContentArr?[readingPosition.page]
+                return LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page + 1],
+                                                  position: ReadingPosition(chapterId: chapterModel.id ?? "", page: readingPosition.page + 1))
             }
         }
         return nil
     }
     
-    private func findLastPage(reviseReadingPosition: Bool) -> String? {
+    private func findLastPage() -> LKReadSingleViewController? {
         if let chapterModel = bookModel?.chapters?[readingPosition.chapterId] {
             if readingPosition.page <= 0 {
                 //某一章第一页
                 guard chapterModel.lastChapterId != "start" else {
                     //第一章第一页
+                    isReverseSide = false
                     return nil
                 }
-                if let lastChapterId = chapterModel.lastChapterId, let lastChapterModel = bookModel?.chapters?[lastChapterId] {
-                    if reviseReadingPosition {
-                        readingPosition.chapterId = lastChapterModel.id ?? ""
-                        readingPosition.page = (lastChapterModel.pageContentArr?.count ?? 1) - 1
-                    }
-                    return lastChapterModel.pageContentArr?.last
+                guard let lastChapterId = chapterModel.lastChapterId,
+                    let lastChapterModel = bookModel?.chapters?[lastChapterId],
+                    let lastContent = lastChapterModel.pageContentArr?.last else {
+                    return nil
                 }
+                let contentVc = LKReadSingleViewController(content: lastContent,
+                                                           position: ReadingPosition(chapterId: lastChapterModel.id ?? "",
+                                                                                     page: (lastChapterModel.pageContentArr?.count ?? 1) - 1))
+                return isReverseSide ? reversalCotentVc(originalVc: contentVc) : contentVc
             } else {
-                if reviseReadingPosition {
-                    readingPosition.chapterId = chapterModel.id ?? ""
-                    readingPosition.page -= 1
-                    return chapterModel.pageContentArr?[readingPosition.page]
-                }
-                return chapterModel.pageContentArr?[readingPosition.page - 1]
+                let contentVc = LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page - 1],
+                                                           position: ReadingPosition(chapterId: chapterModel.id ?? "",
+                                                                                     page: readingPosition.page - 1))
+                return isReverseSide ? reversalCotentVc(originalVc: contentVc) : contentVc
             }
         }
         return nil
+    }
+    
+    //阅读页背面显示，翻转
+    private func reversalCotentVc(originalVc: LKReadSingleViewController) -> LKReadSingleViewController {
+        let rect = originalVc.view.bounds
+        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0.0)
+        let context = UIGraphicsGetCurrentContext()
+        let transform = CGAffineTransform(a: -1.0, b: 0.0, c: 0.0, d: 1.0, tx: rect.size.width, ty: 0.0)
+        context?.concatenate(transform)
+        originalVc.view.layer.render(in: context!)
+        let backImage = UIGraphicsGetImageFromCurrentImageContext()
+        let backImgView = UIImageView(frame: originalVc.view.bounds)
+        backImgView.image = backImage
+        originalVc.view.addSubview(backImgView)
+        UIGraphicsEndImageContext()
+        return originalVc
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,68 +165,22 @@ class LKReadViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    deinit {
+        print("deinit")
+    }
+    
 }
 
 extension LKReadViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        pageFlag -= 1
-        if pageFlag % 2 == 0 {
-            guard let content = findLastPage(reviseReadingPosition: true) else {
-                return nil
-            }
-            let contentVc = LKReadSingleViewController()
-            contentVc.contentView.content = content
-            contentVc.position = readingPosition
-            return contentVc
-        }
-        guard let content = findLastPage(reviseReadingPosition: false) else {
-            return nil
-        }
-        let contentVc = LKReadSingleViewController()
-        contentVc.contentView.content = content
-        let rect = contentVc.view.bounds
-        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0.0)
-        let context = UIGraphicsGetCurrentContext()
-        let transform = CGAffineTransform(a: -1.0, b: 0.0, c: 0.0, d: 1.0, tx: rect.size.width, ty: 0.0)
-        context?.concatenate(transform)
-        contentVc.view.layer.render(in: context!)
-        let backImage = UIGraphicsGetImageFromCurrentImageContext()
-        let backImgView = UIImageView(frame: contentVc.view.bounds)
-        backImgView.image = backImage
-        contentVc.view.addSubview(backImgView)
-        UIGraphicsEndImageContext()
-        return contentVc
+        isReverseSide = !isReverseSide
+        return findLastPage()
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        pageFlag += 1
-        if pageFlag % 2 == 0 {
-            guard let content = findNextPage(reviseReadingPosition: true) else {
-                return nil
-            }
-            let contentVc = LKReadSingleViewController()
-            contentVc.contentView.content = content
-            contentVc.position = readingPosition
-            return contentVc
-        }
-        guard let content = findNextPage(reviseReadingPosition: false) else {
-            return nil
-        }
-        let contentVc = LKReadSingleViewController()
-        contentVc.contentView.content = content
-        let rect = contentVc.view.bounds
-        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0.0)
-        let context = UIGraphicsGetCurrentContext()
-        let transform = CGAffineTransform(a: -1.0, b: 0.0, c: 0.0, d: 1.0, tx: rect.size.width, ty: 0.0)
-        context?.concatenate(transform)
-        contentVc.view.layer.render(in: context!)
-        let backImage = UIGraphicsGetImageFromCurrentImageContext()
-        let backImgView = UIImageView(frame: contentVc.view.bounds)
-        backImgView.image = backImage
-        contentVc.view.addSubview(backImgView)
-        UIGraphicsEndImageContext()
-        return contentVc
+        isReverseSide = !isReverseSide
+        return findNextPage()
     }
     
 }
@@ -195,17 +188,17 @@ extension LKReadViewController: UIPageViewControllerDataSource {
 extension LKReadViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        if let readingVc = pendingViewControllers.first as? LKReadSingleViewController {
-            print("reading --- \(readingVc.position)")
-            readingPosition = readingVc.position
+        if let pendingVc = pendingViewControllers.first as? LKReadSingleViewController {
+            print("reading --- \(pendingVc.position)")
+            readingVc = pendingVc
         }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if let readingVc = previousViewControllers.first as? LKReadSingleViewController {
-            print("completed(\(completed)) ... \(readingVc.position)")
+        if let previousVc = previousViewControllers.first as? LKReadSingleViewController {
+            print("completed(\(completed)) ... \(previousVc.position)")
             if !completed {
-                readingPosition = readingVc.position
+                readingVc = previousVc
             }
         }
     }
@@ -218,4 +211,19 @@ extension LKReadViewController: LKReadMenuViewDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    func choosedChapter(chapterId: String) {
+        readChapter(chapterId: chapterId)
+    }
+    
+}
+
+extension LKReadViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let touchView = touch.view {
+            if touchView.isDescendant(of: menuView.titleTabView) {
+                return false
+            }
+        }
+        return true
+    }
 }

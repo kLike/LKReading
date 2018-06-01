@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func beginReading(_ sender: UIButton) {
-        if let urlStr = Bundle.main.path(forResource: "花开似瑾", ofType: "txt") {
+        if let urlStr = Bundle.main.path(forResource: "斗破苍穹", ofType: "txt") {
             let readVc = LKReadViewController()
             readVc.bookUrlStr = urlStr
             present(readVc, animated: true, completion: nil)

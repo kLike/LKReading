@@ -17,7 +17,17 @@ class LKReadSingleViewController: UIViewController {
         view.addSubview(contentView)
         return contentView
     }()
-
+    
+    convenience init(content: String?, position: ReadingPosition? = nil) {
+        self.init()
+        if let content = content {
+            self.contentView.content = content
+        }
+        if let position = position {
+            self.position = position
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange

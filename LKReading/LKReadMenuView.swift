@@ -10,12 +10,18 @@ import UIKit
 
 protocol LKReadMenuViewDelegate {
     func exitReading()
+    func choosedChapter(chapterId: String)
 }
 
 
 class LKReadMenuView: UIView {
     
     var delegate: LKReadMenuViewDelegate?
+    var titlesArr = [LKDirectoriesModel]() {
+        didSet {
+            titleTabView.reloadData()
+        }
+    }
 
     @IBOutlet weak var pageBtn1: UIButton!
     @IBOutlet weak var pageBtn2: UIButton!
@@ -34,17 +40,26 @@ class LKReadMenuView: UIView {
     @IBOutlet weak var setViewH: NSLayoutConstraint!
     @IBOutlet weak var chapterViewH: NSLayoutConstraint!
     @IBOutlet weak var directoriesViewW: NSLayoutConstraint!
+    @IBOutlet weak var bookNameLabTop: NSLayoutConstraint!
     
     @IBOutlet weak var navView: UIView!
     @IBOutlet weak var setView: UIView!
     @IBOutlet weak var chapterView: UIView!
     @IBOutlet weak var directoriesView: UIView!
+    @IBOutlet weak var titleTabView: UITableView!
+    @IBOutlet weak var bookNameLab: UILabel!
     
     var showing: Bool = false
     
     override func awakeFromNib() {
+        titleTabView.delegate = self
+        titleTabView.dataSource = self
+        directoriesViewW.constant = kScreenW * 0.8
+        bookNameLabTop.constant = kStatusBarH
         isUserInteractionEnabled = true
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmiss)))
+        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(dissmiss))
+        dismissTap.delegate = self
+        addGestureRecognizer(dismissTap)
         navView.transform = CGAffineTransform(translationX: 0, y: -navViewH.constant)
         setView.transform = CGAffineTransform(translationX: 0, y: setViewH.constant)
         chapterView.transform = CGAffineTransform(translationX: 0, y: chapterViewH.constant)
@@ -115,3 +130,40 @@ class LKReadMenuView: UIView {
     }
     
 }
+
+
+extension LKReadMenuView: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return titlesArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = titlesArr[indexPath.row].title
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dissmiss()
+        if let chapterId = titlesArr[indexPath.row].id {
+            delegate?.choosedChapter(chapterId: chapterId)
+        }
+    }
+    
+}
+
+
+extension LKReadMenuView: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let touchView = touch.view {
+            if touchView.isDescendant(of: chapterView) || touchView.isDescendant(of: setView) || touchView.isDescendant(of: directoriesView) || touchView.isDescendant(of: navView) || touchView.isDescendant(of: titleTabView) {
+                return false
+            }
+        }
+        return true
+    }
+    
+}
+

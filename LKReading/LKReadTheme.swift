@@ -11,6 +11,8 @@ import UIKit
 
 let kScreenW = UIScreen.main.bounds.width
 let kScreenH = UIScreen.main.bounds.height
+let kStatusBarH = UIApplication.shared.statusBarFrame.size.height
+let kNavigationBarH = kStatusBarH + 44
 
 struct LKReadTheme {
     
