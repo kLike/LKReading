@@ -18,6 +18,13 @@ class LKReadSingleViewController: UIViewController {
         return contentView
     }()
     
+    lazy var backImg: UIImageView = {
+        let iv = UIImageView(frame: view.bounds)
+        view.addSubview(iv)
+        view.sendSubview(toBack: iv)
+        return iv
+    }()
+    
     convenience init(content: String?, position: ReadingPosition? = nil) {
         self.init()
         if let content = content {
@@ -30,7 +37,11 @@ class LKReadSingleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.orange
+        renewBackImg()
+    }
+    
+    func renewBackImg() {
+        backImg.image = LKReadTheme.share.getBackImg()
     }
 
     override func didReceiveMemoryWarning() {

@@ -62,9 +62,9 @@ class LKBookManager: NSObject {
                             prefaceChapterModel.id = "-1"
                             prefaceChapterModel.nextChapterId = "0"
                             prefaceChapterModel.lastChapterId = "start"
-                            if let content = prefaceChapterModel.content {
-                                prefaceChapterModel.pageContentArr = self.divideChapter(content: content)
-                            }
+//                            if let content = prefaceChapterModel.content {
+//                                prefaceChapterModel.pageContentArr = self.divideChapter(content: content)
+//                            }
                             chapterDic[prefaceChapterModel.id!] = prefaceChapterModel
                             directoriesModel = LKDirectoriesModel(id: prefaceChapterModel.id, title: prefaceChapterModel.title)
                             directoriesArr.append(directoriesModel)
@@ -75,9 +75,9 @@ class LKBookManager: NSObject {
                     if index == chapterResult.count - 1 {
                         chapterModel.nextChapterId = "end"
                     }
-                    if let content = chapterModel.content {
-                        chapterModel.pageContentArr = self.divideChapter(content: content)
-                    }
+//                    if let content = chapterModel.content {
+//                        chapterModel.pageContentArr = self.divideChapter(content: content)
+//                    }
                     chapterDic[chapterModel.id!] = chapterModel
                     directoriesArr.append(directoriesModel)
                     if chapterDic.count == 5 {

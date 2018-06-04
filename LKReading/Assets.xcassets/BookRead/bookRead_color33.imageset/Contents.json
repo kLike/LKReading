@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bookRead_color33.png",
+      "filename" : "color44.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bookRead_color33@2x.png",
+      "filename" : "color44@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bookRead_color33@3x.png",
+      "filename" : "color44@3x.png",
       "scale" : "3x"
     }
   ],

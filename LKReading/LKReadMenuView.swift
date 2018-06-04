@@ -11,6 +11,8 @@ import UIKit
 protocol LKReadMenuViewDelegate {
     func exitReading()
     func choosedChapter(chapterId: String)
+    func changeReadBackground()
+    func changeReadFont()
 }
 
 
@@ -27,12 +29,12 @@ class LKReadMenuView: UIView {
     @IBOutlet weak var pageBtn2: UIButton!
     @IBOutlet weak var pageBtn3: UIButton!
     @IBOutlet weak var fontLab: UILabel!
+
     @IBOutlet weak var back1: UIButton!
     @IBOutlet weak var back2: UIButton!
     @IBOutlet weak var back3: UIButton!
     @IBOutlet weak var back4: UIButton!
-    @IBOutlet weak var back5: UIButton!
-    @IBOutlet weak var back6: UIButton!
+
     @IBOutlet weak var lightSlider: UISlider!
     @IBOutlet weak var pageStack: UIStackView!
     
@@ -57,13 +59,30 @@ class LKReadMenuView: UIView {
         directoriesViewW.constant = kScreenW * 0.8
         bookNameLabTop.constant = kStatusBarH
         isUserInteractionEnabled = true
+        
         let dismissTap = UITapGestureRecognizer(target: self, action: #selector(dissmiss))
         dismissTap.delegate = self
         addGestureRecognizer(dismissTap)
+        
         navView.transform = CGAffineTransform(translationX: 0, y: -navViewH.constant)
         setView.transform = CGAffineTransform(translationX: 0, y: setViewH.constant)
         chapterView.transform = CGAffineTransform(translationX: 0, y: chapterViewH.constant)
         directoriesView.transform = CGAffineTransform(translationX: -directoriesViewW.constant, y: 0)
+        
+        lightSlider.setThumbImage(UIImage(named: "bookRead_jindutiao"), for: .normal)
+        [back1, back2, back3, back4].enumerated().forEach { (index, btn) in
+            btn?.setImage(UIImage(named: "bookRead_color\(index + 1)\(index + 1)"), for: .selected)
+            btn?.isSelected = LKReadTheme.share.backImgIndex == index
+        }
+        [pageBtn1, pageBtn2, pageBtn3].forEach { (btn) in
+            btn?.layer.cornerRadius = 2
+            btn?.layer.masksToBounds = true
+            btn?.setTitleColor(UIColor.white, for: .selected)
+            btn?.layer.borderWidth = 0.5
+            btn?.layer.borderColor = UIColor.colorFromHex(0x999999).cgColor
+        }
+        
+        fontLab.text = "\(Int(LKReadTheme.share.fontSize))"
     }
     
     func show() {
@@ -106,19 +125,29 @@ class LKReadMenuView: UIView {
     }
     
     @IBAction func fontDown(_ sender: UIButton) {
-        
+        LKReadTheme.share.fontSize -= 1
+        fontLab.text = "\(Int(LKReadTheme.share.fontSize))"
+        delegate?.changeReadFont()
     }
     
     @IBAction func fontAdd(_ sender: UIButton) {
-        
+        LKReadTheme.share.fontSize += 1
+        fontLab.text = "\(Int(LKReadTheme.share.fontSize))"
+        delegate?.changeReadFont()
     }
     
     @IBAction func backgroundChange(_ sender: UIButton) {
-        
+        [back1, back2, back3, back4].enumerated().forEach { (index, btn) in
+            if sender == btn {
+                LKReadTheme.share.backImgIndex = index
+            }
+            btn?.isSelected = sender == btn
+        }
+        delegate?.changeReadBackground()
     }
     
     @IBAction func pageChange(_ sender: UIButton) {
-        
+
     }
     
     @IBAction func exitClick(_ sender: UIButton) {

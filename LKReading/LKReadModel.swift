@@ -21,6 +21,7 @@ struct LKReadChapterModel: Codable {
     var nextChapterId: String?
     var lastChapterId: String?
     var pageContentArr: [String]?
+    var themeVersion: Int?
 }
 
 struct LKDirectoriesModel: Codable {

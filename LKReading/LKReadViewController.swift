@@ -42,6 +42,7 @@ class LKReadViewController: UIViewController {
             mView.titlesArr = chapterTitles
         }
         view.addSubview(mView)
+        mView.isHidden = true
         return mView
     }()
     
@@ -66,13 +67,18 @@ class LKReadViewController: UIViewController {
         if let bookUrlStr = bookUrlStr {
             LKBookManager().loadBook(bookUrlStr: bookUrlStr, advanceBack: { (readModel) in
                 self.bookModel = readModel
-                self.readChapter(chapterId: readModel.chapterTitles?.first?.id)
+                if let firstChapterId = readModel.chapterTitles?.first?.id {
+                    self.dividChapterContent(chapterId: firstChapterId)
+                    self.readChapter(chapterId: firstChapterId)
+                }
             }, completeBack: { (readModel) in
                 self.bookModel = readModel
+                if let firstChapterId = readModel.chapterTitles?.first?.id {
+                    self.dividChapterContent(chapterId: firstChapterId)
+                }
                 if let chapterTitles = self.bookModel?.chapterTitles {
                     self.menuView.titlesArr = chapterTitles
                 }
-//                self.showBook()
             })
         }
     }
@@ -87,33 +93,49 @@ class LKReadViewController: UIViewController {
         isReverseSide = false
     }
     
-    private func findNextPage() -> LKReadSingleViewController? {
-        if let chapterModel = bookModel?.chapters?[readingPosition.chapterId] {
-            if isReverseSide {
-                //背面
-                let contentVc = LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page])
-                return reversalCotentVc(originalVc: contentVc)
-            }
-            if readingPosition.page + 1 >= (chapterModel.pageContentArr?.count ?? 0) {
-                //某一章最后一页
-                guard chapterModel.lastChapterId != "end" else {
-                    //最后一章最后一页
-                    isReverseSide = false
-                    return nil
+    func dividChapterContent(chapterId: String) {
+        if let chapterModel = bookModel?.chapters?[chapterId] {
+            if chapterModel.themeVersion != LKReadTheme.share.themeVersion {
+                if let chapterContent = chapterModel.content {
+                    let pageContentArr = LKBookManager().divideChapter(content: chapterContent)
+                    bookModel?.chapters?[chapterId]?.pageContentArr = pageContentArr
+                    bookModel?.chapters?[chapterId]?.themeVersion = LKReadTheme.share.themeVersion
                 }
-                guard let nextChapterId = chapterModel.nextChapterId,
-                    let nextChapterModel = bookModel?.chapters?[nextChapterId],
-                    let nextContent = nextChapterModel.pageContentArr?.first else {
-                        return nil
-                }
-                return LKReadSingleViewController(content: nextContent,
-                                                  position: ReadingPosition(chapterId: nextChapterModel.id ?? "", page: 0))
-            } else {
-                return LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page + 1],
-                                                  position: ReadingPosition(chapterId: chapterModel.id ?? "", page: readingPosition.page + 1))
             }
         }
-        return nil
+    }
+    
+    private func findNextPage() -> LKReadSingleViewController? {
+        guard let chapterModel = bookModel?.chapters?[readingPosition.chapterId] else {
+            return nil
+        }
+        if isReverseSide {
+            //背面
+            let contentVc = LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page])
+            return reversalCotentVc(originalVc: contentVc)
+        }
+        if readingPosition.page + 1 >= (chapterModel.pageContentArr?.count ?? 0) {
+            //某一章最后一页
+            guard chapterModel.lastChapterId != "end" else {
+                //最后一章最后一页
+                isReverseSide = false
+                return nil
+            }
+            //下一章
+            guard let nextChapterId = chapterModel.nextChapterId else {
+                return nil
+            }
+            dividChapterContent(chapterId: nextChapterId)
+            guard let nextChapterModel = bookModel?.chapters?[nextChapterId],
+                let nextContent = nextChapterModel.pageContentArr?.first else {
+                return nil
+            }
+            return LKReadSingleViewController(content: nextContent,
+                                              position: ReadingPosition(chapterId: nextChapterModel.id ?? "", page: 0))
+        } else {
+            return LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page + 1],
+                                              position: ReadingPosition(chapterId: chapterModel.id ?? "", page: readingPosition.page + 1))
+        }
     }
     
     private func findLastPage() -> LKReadSingleViewController? {
@@ -125,8 +147,12 @@ class LKReadViewController: UIViewController {
                     isReverseSide = false
                     return nil
                 }
-                guard let lastChapterId = chapterModel.lastChapterId,
-                    let lastChapterModel = bookModel?.chapters?[lastChapterId],
+                //上一章
+                guard let lastChapterId = chapterModel.lastChapterId else {
+                    return nil
+                }
+                dividChapterContent(chapterId: lastChapterId)
+                guard let lastChapterModel = bookModel?.chapters?[lastChapterId],
                     let lastContent = lastChapterModel.pageContentArr?.last else {
                     return nil
                 }
@@ -213,6 +239,15 @@ extension LKReadViewController: LKReadMenuViewDelegate {
     
     func choosedChapter(chapterId: String) {
         readChapter(chapterId: chapterId)
+    }
+    
+    func changeReadBackground() {
+        readingVc.renewBackImg()
+    }
+    
+    func changeReadFont() {
+        dividChapterContent(chapterId: readingPosition.chapterId)
+        readChapter(chapterId: readingPosition.chapterId, page: readingPosition.page)
     }
     
 }
