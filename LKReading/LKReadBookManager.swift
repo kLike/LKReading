@@ -12,29 +12,22 @@ import CoreText
 class LKBookManager: NSObject {
  
     func loadBook(bookUrlStr: String,
-                  advanceBack: @escaping (LKReadModel) -> (),
                   completeBack: @escaping (LKReadModel) -> ()) {
         do {
             let bookName = bookUrlStr.components(separatedBy: "/").last?.components(separatedBy: ".").first
             let content = try String.init(contentsOfFile: bookUrlStr, encoding: .utf8)
-            parsingLocalBook(bookName: bookName, bookContent: content, advanceBack: { (readModel) in
-                DispatchQueue.main.safeAsync {
-                    advanceBack(readModel)
-                }
-            }, completeBack: { (readModel) in
+            parsingLocalBook(bookName: bookName, bookContent: content) { (readModel) in
                 DispatchQueue.main.safeAsync {
                     completeBack(readModel)
                 }
-            })
+            }
         } catch { }
     }
     
     func parsingLocalBook(bookName: String?,
                           bookContent: String,
-                          advanceBack: @escaping (LKReadModel) -> (),
                           completeBack: @escaping (LKReadModel) -> ()) {
         DispatchQueue.global().async {
-            print("parsingLocalBookStart: \(Date().timeIntervalSince1970)")
             var readModel = LKReadModel()
             readModel.bookId = bookName
             let bookContentNSStr = bookContent as NSString
@@ -43,9 +36,7 @@ class LKBookManager: NSObject {
             let pattern = "第[0-9一二三四五六七八九十百千]*[章回].*"
             if let expression = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
                 let chapterResult = expression.matches(in: bookContent, options: .reportProgress, range: NSMakeRange(0, bookContentNSStr.length))
-                print("matchEnd: \(Date().timeIntervalSince1970)")
                 chapterResult.enumerated().forEach({ (index, chapterEle) in
-                    //                print("解析(\(index)/\(chapterResult.count))...")
                     let nextRange = (index == chapterResult.count - 1) ? NSMakeRange(bookContentNSStr.length, 0) : chapterResult[index + 1].range
                     var chapterModel = LKReadChapterModel()
                     chapterModel.id = String(index)
@@ -53,7 +44,6 @@ class LKBookManager: NSObject {
                     chapterModel.content = bookContentNSStr.substring(with: NSMakeRange(chapterEle.range.location, nextRange.location - chapterEle.range.location))
                     chapterModel.lastChapterId = String(index - 1)
                     chapterModel.nextChapterId = String(index + 1)
-                    var directoriesModel = LKDirectoriesModel(id: chapterModel.id, title: chapterModel.title)
                     if index == 0 {
                         if chapterEle.range.location > 0 {
                             var prefaceChapterModel = LKReadChapterModel()
@@ -62,12 +52,8 @@ class LKBookManager: NSObject {
                             prefaceChapterModel.id = "-1"
                             prefaceChapterModel.nextChapterId = "0"
                             prefaceChapterModel.lastChapterId = "start"
-//                            if let content = prefaceChapterModel.content {
-//                                prefaceChapterModel.pageContentArr = self.divideChapter(content: content)
-//                            }
                             chapterDic[prefaceChapterModel.id!] = prefaceChapterModel
-                            directoriesModel = LKDirectoriesModel(id: prefaceChapterModel.id, title: prefaceChapterModel.title)
-                            directoriesArr.append(directoriesModel)
+                            directoriesArr.append(LKDirectoriesModel(id: prefaceChapterModel.id, title:prefaceChapterModel.title))
                         } else {
                             chapterModel.lastChapterId = "start"
                         }
@@ -75,23 +61,13 @@ class LKBookManager: NSObject {
                     if index == chapterResult.count - 1 {
                         chapterModel.nextChapterId = "end"
                     }
-//                    if let content = chapterModel.content {
-//                        chapterModel.pageContentArr = self.divideChapter(content: content)
-//                    }
                     chapterDic[chapterModel.id!] = chapterModel
-                    directoriesArr.append(directoriesModel)
-                    if chapterDic.count == 5 {
-                        print("divideAdvanceChapterEnd: \(Date().timeIntervalSince1970)")
-                        readModel.chapters = chapterDic
-                        readModel.chapterTitles = directoriesArr
-                        advanceBack(readModel)
-                    }
+                    directoriesArr.append(LKDirectoriesModel(id: chapterModel.id, title: chapterModel.title))
                 })
             }
             readModel.chapters = chapterDic
             readModel.chapterTitles = directoriesArr
             completeBack(readModel)
-            print("divideChapterAllEnd: \(Date().timeIntervalSince1970)")
         }
     }
     

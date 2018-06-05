@@ -212,6 +212,9 @@
                             <state key="normal" title="上一章">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="lastChapter:" destination="iN0-l3-epB" eventType="touchUpInside" id="cR5-Zp-7pv"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyb-Fb-54w">
                             <rect key="frame" x="310" y="12" width="50" height="30"/>
@@ -221,6 +224,9 @@
                             <state key="normal" title="下一章">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="nextChapter:" destination="iN0-l3-epB" eventType="touchUpInside" id="kYw-hR-Emb"/>
+                            </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Ysh-Sx-vUF">
                             <rect key="frame" x="10" y="52" width="355" height="42"/>
@@ -260,6 +266,9 @@
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="TR1-TT-Vs2">
                             <rect key="frame" x="78" y="12" width="219" height="31"/>
                             <color key="tintColor" red="0.27450980390000002" green="0.74117647060000003" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="pageSilderChange:" destination="iN0-l3-epB" eventType="valueChanged" id="qDZ-L9-2gs"/>
+                            </connections>
                         </slider>
                     </subviews>
                     <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.94389447770000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -342,6 +351,7 @@
                 <outlet property="pageBtn1" destination="0X1-aH-4Gu" id="zX4-IF-jyz"/>
                 <outlet property="pageBtn2" destination="gyO-cK-CMo" id="I22-G4-Lqu"/>
                 <outlet property="pageBtn3" destination="rWe-LH-kr8" id="VVi-HZ-c6Y"/>
+                <outlet property="pageSlider" destination="TR1-TT-Vs2" id="c5G-da-Hlr"/>
                 <outlet property="pageStack" destination="Yqa-4s-rdP" id="iPc-KE-xNm"/>
                 <outlet property="setView" destination="8Sc-cJ-euy" id="uoM-GR-0hh"/>
                 <outlet property="setViewH" destination="ml9-65-Ewg" id="red-Js-AY9"/>

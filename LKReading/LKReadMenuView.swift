@@ -13,6 +13,9 @@ protocol LKReadMenuViewDelegate {
     func choosedChapter(chapterId: String)
     func changeReadBackground()
     func changeReadFont()
+    func nextChapter()
+    func lastChapter()
+    func pageChange(value: Float)
 }
 
 
@@ -35,6 +38,7 @@ class LKReadMenuView: UIView {
     @IBOutlet weak var back3: UIButton!
     @IBOutlet weak var back4: UIButton!
 
+    @IBOutlet weak var pageSlider: UISlider!
     @IBOutlet weak var lightSlider: UISlider!
     @IBOutlet weak var pageStack: UIStackView!
     
@@ -52,6 +56,7 @@ class LKReadMenuView: UIView {
     @IBOutlet weak var bookNameLab: UILabel!
     
     var showing: Bool = false
+//    var readingChapterId: String?
     
     override func awakeFromNib() {
         titleTabView.delegate = self
@@ -59,6 +64,8 @@ class LKReadMenuView: UIView {
         directoriesViewW.constant = kScreenW * 0.8
         bookNameLabTop.constant = kStatusBarH
         isUserInteractionEnabled = true
+        
+        titleTabView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         
         let dismissTap = UITapGestureRecognizer(target: self, action: #selector(dissmiss))
         dismissTap.delegate = self
@@ -107,6 +114,17 @@ class LKReadMenuView: UIView {
         }
     }
     
+    func scrollToReadingChapter(chapterId: String) {
+//        readingChapterId = chapterId
+        titlesArr.enumerated().forEach { (index, model) in
+            if model.id == chapterId {
+                titleTabView.selectRow(at: IndexPath.init(row: index, section: 0), animated: false, scrollPosition: .middle)
+                titleTabView.scrollToRow(at: IndexPath.init(row: index, section: 0), at: .middle, animated: false)
+                return
+            }
+        }
+    }
+    
     @IBAction func setViewShow(_ sender: UIButton) {
         UIView.animate(withDuration: 0.3) {
             self.setView.transform = CGAffineTransform(translationX: 0, y: 0)
@@ -147,7 +165,7 @@ class LKReadMenuView: UIView {
     }
     
     @IBAction func pageChange(_ sender: UIButton) {
-
+        
     }
     
     @IBAction func exitClick(_ sender: UIButton) {
@@ -156,6 +174,20 @@ class LKReadMenuView: UIView {
     
     @IBAction func lightChange(_ sender: UISlider) {
         UIScreen.main.brightness = CGFloat(sender.value)
+    }
+    
+    @IBAction func lastChapter(_ sender: UIButton) {
+        delegate?.lastChapter()
+        pageSlider.value = 0
+    }
+    
+    @IBAction func nextChapter(_ sender: UIButton) {
+        delegate?.nextChapter()
+        pageSlider.value = 0
+    }
+    
+    @IBAction func pageSilderChange(_ sender: UISlider) {
+        delegate?.pageChange(value: sender.value)
     }
     
 }
@@ -168,7 +200,7 @@ extension LKReadMenuView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")!
         cell.textLabel?.text = titlesArr[indexPath.row].title
         return cell
     }
