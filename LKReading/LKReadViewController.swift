@@ -13,25 +13,25 @@ struct ReadingPosition {
     var page = 0
 }
 
+enum LKTransitionStyle {
+    case pageCurl
+    case scroll
+    case none
+}
+
 class LKReadViewController: UIViewController {
     
     var bookUrlStr: String?
     var bookModel: LKReadModel?
     var isReverseSide = false
+    var transitionStyle: LKTransitionStyle = .pageCurl
+    
     var readingVc = LKReadSingleViewController()
     var readingPosition: ReadingPosition {
         return readingVc.position
     }
     
-    lazy var pageViewController: UIPageViewController = {
-        let page = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
-        page.isDoubleSided = true
-        page.dataSource = self
-        page.delegate = self
-        addChildViewController(page)
-        page.setViewControllers([readingVc], direction: .forward, animated: true, completion: nil)
-        return page
-    }()
+    var pageViewController: UIPageViewController?
     
     lazy var menuView: LKReadMenuView = {
         let mView = Bundle.main.loadNibNamed("LKReadMenuView", owner: nil, options: nil)?.first as! LKReadMenuView
@@ -48,22 +48,66 @@ class LKReadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(pageViewController.view)
-        view.isUserInteractionEnabled = true
+
+        initUI()
+        
         let showMenuTap = UITapGestureRecognizer(target: self, action: #selector(tapView(ges:)))
         showMenuTap.delegate = self
         view.addGestureRecognizer(showMenuTap)
+        
         loadBook()
+    }
+
+    func initUI() {
+        readingVc.view.removeFromSuperview()
+        readingVc.removeFromParentViewController()
+        if transitionStyle == .none {
+            pageViewController?.view.removeFromSuperview()
+            pageViewController?.removeFromParentViewController()
+            addChildViewController(readingVc)
+            view.addSubview(readingVc.view)
+        } else {
+            var style: UIPageViewControllerTransitionStyle = .pageCurl
+            if transitionStyle == .scroll {
+                style = .scroll
+            }
+            pageViewController = UIPageViewController(transitionStyle: style, navigationOrientation: .horizontal, options: nil)
+            if let pageViewController = pageViewController {
+                pageViewController.isDoubleSided = true
+                pageViewController.dataSource = self
+                pageViewController.delegate = self
+                addChildViewController(pageViewController)
+                pageViewController.setViewControllers([readingVc], direction: .forward, animated: true, completion: nil)
+                view.addSubview(pageViewController.view)
+            }
+        }
+        view.bringSubview(toFront: menuView)
+        readChapter(chapterId: readingPosition.chapterId, page: readingPosition.page)
     }
     
     @objc func tapView(ges: UITapGestureRecognizer) {
         let point = ges.location(in: view)
-        if (kScreenW / 4 ... kScreenW / 4 * 3).contains(point.x) && !menuView.showing {
-            if let pageCount = bookModel?.chapters?[readingPosition.chapterId]?.pageContentArr?.count {
-                menuView.pageSlider.value = Float(readingPosition.page) / Float(pageCount - 1)
+        if !menuView.showing {
+            if (kScreenW / 4 ... kScreenW / 4 * 3).contains(point.x) {
+                if let pageCount = bookModel?.chapters?[readingPosition.chapterId]?.pageContentArr?.count {
+                    menuView.pageSlider.value = Float(readingPosition.page) / Float(pageCount - 1)
+                }
+                menuView.scrollToReadingChapter(chapterId: readingPosition.chapterId)
+                menuView.show()
+            } else {
+                if transitionStyle == .none {
+                    let readVc: LKReadSingleViewController?
+                    if (0 ... kScreenW / 4).contains(point.x) {
+                        readVc = findLastPage()
+                    } else {
+                        readVc = findNextPage()
+                    }
+                    if let readVc = readVc {
+                        readingVc.contentView.content = readVc.contentView.content
+                        readingVc.position = readVc.position
+                    }
+                }
             }
-            menuView.scrollToReadingChapter(chapterId: readingPosition.chapterId)
-            menuView.show()
         }
     }
 
@@ -112,7 +156,7 @@ class LKReadViewController: UIViewController {
         guard let chapterModel = bookModel?.chapters?[readingPosition.chapterId] else {
             return nil
         }
-        if isReverseSide {
+        if transitionStyle == .pageCurl && isReverseSide {
             //背面
             let contentVc = LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page])
             return reversalCotentVc(originalVc: contentVc)
@@ -143,6 +187,7 @@ class LKReadViewController: UIViewController {
     
     private func findLastPage() -> LKReadSingleViewController? {
         if let chapterModel = bookModel?.chapters?[readingPosition.chapterId] {
+            let contentVc: LKReadSingleViewController
             if readingPosition.page <= 0 {
                 //某一章第一页
                 guard chapterModel.lastChapterId != "start" else {
@@ -159,16 +204,19 @@ class LKReadViewController: UIViewController {
                       let lastContent = lastChapterModel.pageContentArr?.last else {
                     return nil
                 }
-                let contentVc = LKReadSingleViewController(content: lastContent,
-                                                           position: ReadingPosition(chapterId: lastChapterModel.id ?? "",
-                                                                                     page: (lastChapterModel.pageContentArr?.count ?? 1) - 1))
-                return isReverseSide ? reversalCotentVc(originalVc: contentVc) : contentVc
+                contentVc = LKReadSingleViewController(content: lastContent,
+                                                       position: ReadingPosition(chapterId: lastChapterModel.id ?? "",
+                                                                                 page: (lastChapterModel.pageContentArr?.count ?? 1) - 1))
+                
             } else {
-                let contentVc = LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page - 1],
-                                                           position: ReadingPosition(chapterId: chapterModel.id ?? "",
-                                                                                     page: readingPosition.page - 1))
-                return isReverseSide ? reversalCotentVc(originalVc: contentVc) : contentVc
+                contentVc = LKReadSingleViewController(content: chapterModel.pageContentArr?[readingPosition.page - 1],
+                                                       position: ReadingPosition(chapterId: chapterModel.id ?? "",
+                                                                                 page: readingPosition.page - 1))
             }
+            if transitionStyle == .pageCurl && isReverseSide {
+                return reversalCotentVc(originalVc: contentVc)
+            }
+            return contentVc
         }
         return nil
     }
@@ -200,6 +248,24 @@ class LKReadViewController: UIViewController {
     
 }
 
+extension LKReadViewController: UIPageViewControllerDelegate {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        if let pendingVc = pendingViewControllers.first as? LKReadSingleViewController {
+            readingVc = pendingVc
+        }
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let previousVc = previousViewControllers.first as? LKReadSingleViewController {
+            if !completed {
+                readingVc = previousVc
+            }
+        }
+    }
+    
+}
+
 extension LKReadViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -210,26 +276,6 @@ extension LKReadViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         isReverseSide = !isReverseSide
         return findNextPage()
-    }
-    
-}
-
-extension LKReadViewController: UIPageViewControllerDelegate {
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        if let pendingVc = pendingViewControllers.first as? LKReadSingleViewController {
-            print("reading --- \(pendingVc.position)")
-            readingVc = pendingVc
-        }
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if let previousVc = previousViewControllers.first as? LKReadSingleViewController {
-            print("completed(\(completed)) ... \(previousVc.position)")
-            if !completed {
-                readingVc = previousVc
-            }
-        }
     }
     
 }
@@ -274,6 +320,13 @@ extension LKReadViewController: LKReadMenuViewDelegate {
     func pageChange(value: Float) {
         if let pageCount = bookModel?.chapters?[readingPosition.chapterId]?.pageContentArr?.count {
             readChapter(chapterId: readingPosition.chapterId, page: Int(Float(pageCount - 1) * value))
+        }
+    }
+    
+    func transitionStyleChange(style: LKTransitionStyle) {
+        if transitionStyle != style {
+            transitionStyle = style
+            initUI()
         }
     }
     

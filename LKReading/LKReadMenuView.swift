@@ -16,6 +16,7 @@ protocol LKReadMenuViewDelegate {
     func nextChapter()
     func lastChapter()
     func pageChange(value: Float)
+    func transitionStyleChange(style: LKTransitionStyle)
 }
 
 
@@ -84,7 +85,6 @@ class LKReadMenuView: UIView {
         [pageBtn1, pageBtn2, pageBtn3].forEach { (btn) in
             btn?.layer.cornerRadius = 2
             btn?.layer.masksToBounds = true
-            btn?.setTitleColor(UIColor.white, for: .selected)
             btn?.layer.borderWidth = 0.5
             btn?.layer.borderColor = UIColor.colorFromHex(0x999999).cgColor
         }
@@ -165,7 +165,21 @@ class LKReadMenuView: UIView {
     }
     
     @IBAction func pageChange(_ sender: UIButton) {
-        
+        var styleArr: [LKTransitionStyle] = [.pageCurl, .scroll, .none]
+        [pageBtn1, pageBtn2, pageBtn3].enumerated().forEach { (index, btn) in
+            if sender == btn {
+                btn?.backgroundColor = UIColor.colorFromHex(0x46BD81)
+                btn?.layer.borderWidth = 0.5
+                btn?.layer.borderColor = UIColor.clear.cgColor
+                btn?.setTitleColor(UIColor.white, for: .normal)
+                delegate?.transitionStyleChange(style: styleArr[index])
+            } else {
+                btn?.backgroundColor = UIColor.clear
+                btn?.layer.borderWidth = 0.5
+                btn?.layer.borderColor = UIColor.colorFromHex(0x999999).cgColor
+                btn?.setTitleColor(UIColor.colorFromHex(0x999999), for: .normal)
+            }
+        }
     }
     
     @IBAction func exitClick(_ sender: UIButton) {

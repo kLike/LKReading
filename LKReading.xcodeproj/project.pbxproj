@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E357EA020C0F0DA00629483 /* 斗破苍穹.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0E357E9F20C0F0DA00629483 /* 斗破苍穹.txt */; };
 		0E50031320BF9FDC00D2F20A /* LKReadMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E50031220BF9FDC00D2F20A /* LKReadMenuView.swift */; };
 		0E50031520BF9FEC00D2F20A /* LKReadMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E50031420BF9FEC00D2F20A /* LKReadMenuView.xib */; };
 		0E666DC620BBE782009378A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E666DC520BBE782009378A2 /* AppDelegate.swift */; };
@@ -21,10 +20,10 @@
 		0E666DDE20BBF252009378A2 /* LKReadSingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E666DDD20BBF252009378A2 /* LKReadSingleViewController.swift */; };
 		0EAB2E4120BD310B00E49805 /* LKReadTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */; };
 		0EAB2E4320BD4F0A00E49805 /* 花开似瑾.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */; };
+		0EB1374120C65CFF00391ADF /* 重生西游之齐天大圣.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E357E9F20C0F0DA00629483 /* 斗破苍穹.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "斗破苍穹.txt"; sourceTree = "<group>"; };
 		0E50031220BF9FDC00D2F20A /* LKReadMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadMenuView.swift; sourceTree = "<group>"; };
 		0E50031420BF9FEC00D2F20A /* LKReadMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LKReadMenuView.xib; sourceTree = "<group>"; };
 		0E666DC220BBE782009378A2 /* LKReading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LKReading.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +39,7 @@
 		0E666DDD20BBF252009378A2 /* LKReadSingleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadSingleViewController.swift; sourceTree = "<group>"; };
 		0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadTheme.swift; sourceTree = "<group>"; };
 		0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "花开似瑾.txt"; sourceTree = "<group>"; };
+		0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "重生西游之齐天大圣.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +72,7 @@
 		0E666DC420BBE782009378A2 /* LKReading */ = {
 			isa = PBXGroup;
 			children = (
-				0E357E9F20C0F0DA00629483 /* 斗破苍穹.txt */,
+				0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */,
 				0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */,
 				0E666DC520BBE782009378A2 /* AppDelegate.swift */,
 				0E666DC720BBE782009378A2 /* ViewController.swift */,
@@ -151,11 +151,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E50031520BF9FEC00D2F20A /* LKReadMenuView.xib in Resources */,
-				0E357EA020C0F0DA00629483 /* 斗破苍穹.txt in Resources */,
 				0E666DD020BBE782009378A2 /* LaunchScreen.storyboard in Resources */,
 				0EAB2E4320BD4F0A00E49805 /* 花开似瑾.txt in Resources */,
 				0E666DCD20BBE782009378A2 /* Assets.xcassets in Resources */,
 				0E666DCB20BBE782009378A2 /* Main.storyboard in Resources */,
+				0EB1374120C65CFF00391ADF /* 重生西游之齐天大圣.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
