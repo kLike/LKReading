@@ -1,0 +1,6 @@
+framework module Pods_LKReading {
+  umbrella header "Pods-LKReading-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -21,6 +21,7 @@
 		0EAB2E4120BD310B00E49805 /* LKReadTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */; };
 		0EAB2E4320BD4F0A00E49805 /* 花开似瑾.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */; };
 		0EB1374120C65CFF00391ADF /* 重生西游之齐天大圣.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */; };
+		5E41B4E376B767493991FD2F /* Pods_LKReading.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C696E3923434A855DA2DE628 /* Pods_LKReading.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,9 @@
 		0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadTheme.swift; sourceTree = "<group>"; };
 		0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "花开似瑾.txt"; sourceTree = "<group>"; };
 		0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "重生西游之齐天大圣.txt"; sourceTree = "<group>"; };
+		5A33EAD797F90F84B79D5AE1 /* Pods-LKReading.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKReading.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LKReading/Pods-LKReading.debug.xcconfig"; sourceTree = "<group>"; };
+		A6A605AF7338F1FEFDA6E9EB /* Pods-LKReading.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKReading.release.xcconfig"; path = "Pods/Target Support Files/Pods-LKReading/Pods-LKReading.release.xcconfig"; sourceTree = "<group>"; };
+		C696E3923434A855DA2DE628 /* Pods_LKReading.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LKReading.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E41B4E376B767493991FD2F /* Pods_LKReading.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +63,8 @@
 			children = (
 				0E666DC420BBE782009378A2 /* LKReading */,
 				0E666DC320BBE782009378A2 /* Products */,
+				51E021AD8DE5D2CD57BEC02D /* Pods */,
+				468E9D8F2A4555CA64F401CC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,6 +98,23 @@
 			path = LKReading;
 			sourceTree = "<group>";
 		};
+		468E9D8F2A4555CA64F401CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C696E3923434A855DA2DE628 /* Pods_LKReading.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		51E021AD8DE5D2CD57BEC02D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5A33EAD797F90F84B79D5AE1 /* Pods-LKReading.debug.xcconfig */,
+				A6A605AF7338F1FEFDA6E9EB /* Pods-LKReading.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -98,9 +122,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0E666DD420BBE782009378A2 /* Build configuration list for PBXNativeTarget "LKReading" */;
 			buildPhases = (
+				7437A68BA8D77EE952B06AEC /* [CP] Check Pods Manifest.lock */,
 				0E666DBE20BBE782009378A2 /* Sources */,
 				0E666DBF20BBE782009378A2 /* Frameworks */,
 				0E666DC020BBE782009378A2 /* Resources */,
+				B60908FBE22AC343A08A8D90 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -160,6 +186,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7437A68BA8D77EE952B06AEC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LKReading-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B60908FBE22AC343A08A8D90 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LKReading/Pods-LKReading-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LKReading/Pods-LKReading-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0E666DBE20BBE782009378A2 /* Sources */ = {
@@ -308,6 +375,7 @@
 		};
 		0E666DD520BBE782009378A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A33EAD797F90F84B79D5AE1 /* Pods-LKReading.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -322,6 +390,7 @@
 		};
 		0E666DD620BBE782009378A2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6A605AF7338F1FEFDA6E9EB /* Pods-LKReading.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

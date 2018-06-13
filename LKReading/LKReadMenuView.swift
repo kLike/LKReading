@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol LKReadMenuViewDelegate {
     func exitReading()
@@ -23,7 +24,7 @@ protocol LKReadMenuViewDelegate {
 class LKReadMenuView: UIView {
     
     var delegate: LKReadMenuViewDelegate?
-    var titlesArr = [LKDirectoriesModel]() {
+    var titlesArr: [LKReadChapterModel]? {
         didSet {
             titleTabView.reloadData()
         }
@@ -57,7 +58,6 @@ class LKReadMenuView: UIView {
     @IBOutlet weak var bookNameLab: UILabel!
     
     var showing: Bool = false
-//    var readingChapterId: String?
     
     override func awakeFromNib() {
         titleTabView.delegate = self
@@ -82,11 +82,19 @@ class LKReadMenuView: UIView {
             btn?.setImage(UIImage(named: "bookRead_color\(index + 1)\(index + 1)"), for: .selected)
             btn?.isSelected = LKReadTheme.share.backImgIndex == index
         }
-        [pageBtn1, pageBtn2, pageBtn3].forEach { (btn) in
-            btn?.layer.cornerRadius = 2
-            btn?.layer.masksToBounds = true
-            btn?.layer.borderWidth = 0.5
-            btn?.layer.borderColor = UIColor.colorFromHex(0x999999).cgColor
+
+        [pageBtn1, pageBtn2, pageBtn3].enumerated().forEach { (index, btn) in
+            if index == LKReadTheme.share.transitionStyleIndex {
+                btn?.backgroundColor = UIColor.colorFromHex(0x46BD81)
+                btn?.layer.borderWidth = 0.5
+                btn?.layer.borderColor = UIColor.clear.cgColor
+                btn?.setTitleColor(UIColor.white, for: .normal)
+            } else {
+                btn?.backgroundColor = UIColor.clear
+                btn?.layer.borderWidth = 0.5
+                btn?.layer.borderColor = UIColor.colorFromHex(0x999999).cgColor
+                btn?.setTitleColor(UIColor.colorFromHex(0x999999), for: .normal)
+            }
         }
         
         fontLab.text = "\(Int(LKReadTheme.share.fontSize))"
@@ -115,13 +123,9 @@ class LKReadMenuView: UIView {
     }
     
     func scrollToReadingChapter(chapterId: String) {
-//        readingChapterId = chapterId
-        titlesArr.enumerated().forEach { (index, model) in
-            if model.id == chapterId {
-                titleTabView.selectRow(at: IndexPath.init(row: index, section: 0), animated: false, scrollPosition: .middle)
-                titleTabView.scrollToRow(at: IndexPath.init(row: index, section: 0), at: .middle, animated: false)
-                return
-            }
+        if let index = titlesArr?.index(where: { $0.id == chapterId }) {
+            titleTabView.selectRow(at: IndexPath.init(row: index, section: 0), animated: false, scrollPosition: .middle)
+            titleTabView.scrollToRow(at: IndexPath.init(row: index, section: 0), at: .middle, animated: false)
         }
     }
     
@@ -173,6 +177,7 @@ class LKReadMenuView: UIView {
                 btn?.layer.borderColor = UIColor.clear.cgColor
                 btn?.setTitleColor(UIColor.white, for: .normal)
                 delegate?.transitionStyleChange(style: styleArr[index])
+                LKReadTheme.share.transitionStyleIndex = index
             } else {
                 btn?.backgroundColor = UIColor.clear
                 btn?.layer.borderWidth = 0.5
@@ -210,18 +215,18 @@ class LKReadMenuView: UIView {
 extension LKReadMenuView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titlesArr.count
+        return titlesArr?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")!
-        cell.textLabel?.text = titlesArr[indexPath.row].title
+        cell.textLabel?.text = titlesArr?[indexPath.row].title
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dissmiss()
-        if let chapterId = titlesArr[indexPath.row].id {
+        if let chapterId = titlesArr?[indexPath.row].id {
             delegate?.choosedChapter(chapterId: chapterId)
         }
     }

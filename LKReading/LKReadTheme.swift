@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 let kScreenW = UIScreen.main.bounds.width
 let kScreenH = UIScreen.main.bounds.height
@@ -21,17 +22,56 @@ struct LKReadTheme {
     var edgeRect: CGRect = CGRect(x: 15, y: 40, width: kScreenW - 30, height: kScreenH - 40 - 64)
     
     var fontSize: CGFloat = 15 {
-        didSet { themeVersion += 1 }
+        didSet { 
+            UserDefaults.standard.set(fontSize, forKey: "readingFontSize")
+            themeVersion += 1
+        }
     }
     var lineSpace: CGFloat = 3 {
-        didSet { themeVersion += 1 }
+        didSet {
+            UserDefaults.standard.set(lineSpace, forKey: "readingLineSpace")
+            themeVersion += 1
+        }
     }
     var textColor: UIColor = UIColor.colorFromHex(0x333333)
     
-    var themeVersion = 0 //是否需要重新分页的标识
+    //是否需要重新分页的标识
+    var themeVersion = 0 {
+        didSet {
+            UserDefaults.standard.set(themeVersion, forKey: "readingThemeVersion")
+        }
+    }
     
     var backImgBackArr = ["bookRead_bg1", "bookRead_bg2", "bookRead_bg3", "bookRead_bg4"]
-    var backImgIndex = 0
+    var backImgIndex = 0 {
+        didSet {
+            UserDefaults.standard.set(backImgIndex, forKey: "readingBackImgIndex")
+        }
+    }
+    
+    var transitionStyleIndex = 0 {
+        didSet {
+            UserDefaults.standard.set(transitionStyleIndex, forKey: "readingTransitionStyleIndex")
+        }
+    }
+    
+    init() {
+        if let fontSize = UserDefaults.standard.object(forKey: "readingFontSize") as? CGFloat {
+            self.fontSize = fontSize
+        }
+        if let lineSpace = UserDefaults.standard.object(forKey: "readingLineSpace") as? CGFloat {
+            self.lineSpace = lineSpace
+        }
+        if let themeVersion = UserDefaults.standard.object(forKey: "readingThemeVersion") as? Int {
+            self.themeVersion = themeVersion
+        }
+        if let backImgIndex = UserDefaults.standard.object(forKey: "readingBackImgIndex") as? Int {
+            self.backImgIndex = backImgIndex
+        }
+        if let transitionStyleIndex = UserDefaults.standard.object(forKey: "readingTransitionStyleIndex") as? Int {
+            self.transitionStyleIndex = transitionStyleIndex
+        }
+    }
     
     func getReadTextAttrs() -> [NSAttributedStringKey : Any] {
         let para = NSMutableParagraphStyle()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        /* Realm 数据库配置，用于数据库的迭代更新 */
+        let schemaVersion: UInt64 = 0
+        let config = Realm.Configuration(schemaVersion: schemaVersion, migrationBlock: { migration, oldSchemaVersion in
+            /* 什么都不要做！Realm 会自行检测新增和需要移除的属性，然后自动更新硬盘上的数据库架构 */
+            if (oldSchemaVersion < schemaVersion) { }
+        })
+        Realm.Configuration.defaultConfiguration = config
+        Realm.asyncOpen { (realm, error) in
+            /* Realm 成功打开，迁移已在后台线程中完成 */
+            if let _ = realm {
+                print("Realm 数据库配置成功")
+            }
+            else if let error = error {
+                /* 处理打开 Realm 时所发生的错误 */
+                print("Realm 数据库配置失败：\(error.localizedDescription)")
+            }
+        }
+
         return true
     }
 
