@@ -14,6 +14,7 @@ let kScreenW = UIScreen.main.bounds.width
 let kScreenH = UIScreen.main.bounds.height
 let kStatusBarH = UIApplication.shared.statusBarFrame.size.height
 let kNavigationBarH = kStatusBarH + 44
+let kBottomSafeH: CGFloat = kNavigationBarH > 64 ? 34 : 0.01
 
 struct LKReadTheme {
     
@@ -27,7 +28,7 @@ struct LKReadTheme {
             themeVersion += 1
         }
     }
-    var lineSpace: CGFloat = 3 {
+    var lineSpace: CGFloat = 5 {
         didSet {
             UserDefaults.standard.set(lineSpace, forKey: "readingLineSpace")
             themeVersion += 1

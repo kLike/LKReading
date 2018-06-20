@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E01371020DA3D4C00C8F552 /* LKBookParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E01370F20DA3D4C00C8F552 /* LKBookParsing.swift */; };
+		0E01371520DA442E00C8F552 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E01371420DA442E00C8F552 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0E40B5FD20D1058400CA39FD /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5D720D1058300CA39FD /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0E40B5FE20D1058400CA39FD /* CXMLDocument_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5DC20D1058300CA39FD /* CXMLDocument_CreationExtensions.m */; };
+		0E40B5FF20D1058400CA39FD /* CXMLNode_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5DE20D1058300CA39FD /* CXMLNode_CreationExtensions.m */; };
+		0E40B60020D1058400CA39FD /* CXHTMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5E020D1058300CA39FD /* CXHTMLDocument.m */; };
+		0E40B60120D1058400CA39FD /* CXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5E220D1058300CA39FD /* CXMLDocument.m */; };
+		0E40B60220D1058400CA39FD /* CXMLDocument_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5E420D1058300CA39FD /* CXMLDocument_PrivateExtensions.m */; };
+		0E40B60320D1058400CA39FD /* CXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5E620D1058300CA39FD /* CXMLElement.m */; };
+		0E40B60420D1058400CA39FD /* CXMLElement_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5E820D1058300CA39FD /* CXMLElement_CreationExtensions.m */; };
+		0E40B60520D1058400CA39FD /* CXMLElement_ElementTreeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5EA20D1058300CA39FD /* CXMLElement_ElementTreeExtensions.m */; };
+		0E40B60620D1058400CA39FD /* CXMLNamespaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5EC20D1058300CA39FD /* CXMLNamespaceNode.m */; };
+		0E40B60720D1058400CA39FD /* CXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5EE20D1058300CA39FD /* CXMLNode.m */; };
+		0E40B60820D1058400CA39FD /* CXMLNode_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5F020D1058300CA39FD /* CXMLNode_PrivateExtensions.m */; };
+		0E40B60920D1058400CA39FD /* CXMLNode_XPathExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5F220D1058300CA39FD /* CXMLNode_XPathExtensions.m */; };
+		0E40B60A20D1058400CA39FD /* CXMLUnsupportedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5F420D1058300CA39FD /* CXMLUnsupportedNode.m */; };
+		0E40B60B20D1058400CA39FD /* CTidy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E40B5F720D1058300CA39FD /* CTidy.m */; };
+		0E40B61320D10CD500CA39FD /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E40B61220D10CD500CA39FD /* libxml2.2.tbd */; };
+		0E40B61520D10CDC00CA39FD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E40B61420D10CDC00CA39FD /* libz.tbd */; };
+		0E40B61920D1197700CA39FD /* 我欲封天.epub in Resources */ = {isa = PBXBuildFile; fileRef = 0E40B61820D1184400CA39FD /* 我欲封天.epub */; };
 		0E50031320BF9FDC00D2F20A /* LKReadMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E50031220BF9FDC00D2F20A /* LKReadMenuView.swift */; };
 		0E50031520BF9FEC00D2F20A /* LKReadMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E50031420BF9FEC00D2F20A /* LKReadMenuView.xib */; };
 		0E666DC620BBE782009378A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E666DC520BBE782009378A2 /* AppDelegate.swift */; };
@@ -25,6 +45,45 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E01370F20DA3D4C00C8F552 /* LKBookParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKBookParsing.swift; sourceTree = "<group>"; };
+		0E01371220DA442E00C8F552 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		0E01371320DA442E00C8F552 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		0E01371420DA442E00C8F552 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		0E40B5D620D1058300CA39FD /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		0E40B5D720D1058300CA39FD /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		0E40B5DB20D1058300CA39FD /* CXMLDocument_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLDocument_CreationExtensions.h; sourceTree = "<group>"; };
+		0E40B5DC20D1058300CA39FD /* CXMLDocument_CreationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLDocument_CreationExtensions.m; sourceTree = "<group>"; };
+		0E40B5DD20D1058300CA39FD /* CXMLNode_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLNode_CreationExtensions.h; sourceTree = "<group>"; };
+		0E40B5DE20D1058300CA39FD /* CXMLNode_CreationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLNode_CreationExtensions.m; sourceTree = "<group>"; };
+		0E40B5DF20D1058300CA39FD /* CXHTMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXHTMLDocument.h; sourceTree = "<group>"; };
+		0E40B5E020D1058300CA39FD /* CXHTMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXHTMLDocument.m; sourceTree = "<group>"; };
+		0E40B5E120D1058300CA39FD /* CXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLDocument.h; sourceTree = "<group>"; };
+		0E40B5E220D1058300CA39FD /* CXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLDocument.m; sourceTree = "<group>"; };
+		0E40B5E320D1058300CA39FD /* CXMLDocument_PrivateExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLDocument_PrivateExtensions.h; sourceTree = "<group>"; };
+		0E40B5E420D1058300CA39FD /* CXMLDocument_PrivateExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLDocument_PrivateExtensions.m; sourceTree = "<group>"; };
+		0E40B5E520D1058300CA39FD /* CXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLElement.h; sourceTree = "<group>"; };
+		0E40B5E620D1058300CA39FD /* CXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLElement.m; sourceTree = "<group>"; };
+		0E40B5E720D1058300CA39FD /* CXMLElement_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLElement_CreationExtensions.h; sourceTree = "<group>"; };
+		0E40B5E820D1058300CA39FD /* CXMLElement_CreationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLElement_CreationExtensions.m; sourceTree = "<group>"; };
+		0E40B5E920D1058300CA39FD /* CXMLElement_ElementTreeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLElement_ElementTreeExtensions.h; sourceTree = "<group>"; };
+		0E40B5EA20D1058300CA39FD /* CXMLElement_ElementTreeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLElement_ElementTreeExtensions.m; sourceTree = "<group>"; };
+		0E40B5EB20D1058300CA39FD /* CXMLNamespaceNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLNamespaceNode.h; sourceTree = "<group>"; };
+		0E40B5EC20D1058300CA39FD /* CXMLNamespaceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLNamespaceNode.m; sourceTree = "<group>"; };
+		0E40B5ED20D1058300CA39FD /* CXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLNode.h; sourceTree = "<group>"; };
+		0E40B5EE20D1058300CA39FD /* CXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLNode.m; sourceTree = "<group>"; };
+		0E40B5EF20D1058300CA39FD /* CXMLNode_PrivateExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLNode_PrivateExtensions.h; sourceTree = "<group>"; };
+		0E40B5F020D1058300CA39FD /* CXMLNode_PrivateExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLNode_PrivateExtensions.m; sourceTree = "<group>"; };
+		0E40B5F120D1058300CA39FD /* CXMLNode_XPathExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLNode_XPathExtensions.h; sourceTree = "<group>"; };
+		0E40B5F220D1058300CA39FD /* CXMLNode_XPathExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLNode_XPathExtensions.m; sourceTree = "<group>"; };
+		0E40B5F320D1058300CA39FD /* CXMLUnsupportedNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLUnsupportedNode.h; sourceTree = "<group>"; };
+		0E40B5F420D1058300CA39FD /* CXMLUnsupportedNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLUnsupportedNode.m; sourceTree = "<group>"; };
+		0E40B5F620D1058300CA39FD /* CTidy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTidy.h; sourceTree = "<group>"; };
+		0E40B5F720D1058300CA39FD /* CTidy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTidy.m; sourceTree = "<group>"; };
+		0E40B5F820D1058300CA39FD /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchXML.h; sourceTree = "<group>"; };
+		0E40B61120D10B6200CA39FD /* LKReading-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LKReading-Bridging-Header.h"; sourceTree = "<group>"; };
+		0E40B61220D10CD500CA39FD /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		0E40B61420D10CDC00CA39FD /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		0E40B61820D1184400CA39FD /* 我欲封天.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "我欲封天.epub"; sourceTree = "<group>"; };
 		0E50031220BF9FDC00D2F20A /* LKReadMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadMenuView.swift; sourceTree = "<group>"; };
 		0E50031420BF9FEC00D2F20A /* LKReadMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LKReadMenuView.xib; sourceTree = "<group>"; };
 		0E666DC220BBE782009378A2 /* LKReading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LKReading.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +110,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E40B61520D10CDC00CA39FD /* libz.tbd in Frameworks */,
+				0E40B61320D10CD500CA39FD /* libxml2.2.tbd in Frameworks */,
 				5E41B4E376B767493991FD2F /* Pods_LKReading.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,6 +119,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E01371120DA440200C8F552 /* tool */ = {
+			isa = PBXGroup;
+			children = (
+				0E01371320DA442E00C8F552 /* GTMDefines.h */,
+				0E01371220DA442E00C8F552 /* GTMNSString+HTML.h */,
+				0E01371420DA442E00C8F552 /* GTMNSString+HTML.m */,
+				0E40B5D620D1058300CA39FD /* NSString+HTML.h */,
+				0E40B5D720D1058300CA39FD /* NSString+HTML.m */,
+				0E40B5D820D1058300CA39FD /* TouchXML */,
+			);
+			path = tool;
+			sourceTree = "<group>";
+		};
+		0E40B5D820D1058300CA39FD /* TouchXML */ = {
+			isa = PBXGroup;
+			children = (
+				0E40B5D920D1058300CA39FD /* Source */,
+			);
+			path = TouchXML;
+			sourceTree = "<group>";
+		};
+		0E40B5D920D1058300CA39FD /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0E40B5DA20D1058300CA39FD /* Creation */,
+				0E40B5DF20D1058300CA39FD /* CXHTMLDocument.h */,
+				0E40B5E020D1058300CA39FD /* CXHTMLDocument.m */,
+				0E40B5E120D1058300CA39FD /* CXMLDocument.h */,
+				0E40B5E220D1058300CA39FD /* CXMLDocument.m */,
+				0E40B5E320D1058300CA39FD /* CXMLDocument_PrivateExtensions.h */,
+				0E40B5E420D1058300CA39FD /* CXMLDocument_PrivateExtensions.m */,
+				0E40B5E520D1058300CA39FD /* CXMLElement.h */,
+				0E40B5E620D1058300CA39FD /* CXMLElement.m */,
+				0E40B5E720D1058300CA39FD /* CXMLElement_CreationExtensions.h */,
+				0E40B5E820D1058300CA39FD /* CXMLElement_CreationExtensions.m */,
+				0E40B5E920D1058300CA39FD /* CXMLElement_ElementTreeExtensions.h */,
+				0E40B5EA20D1058300CA39FD /* CXMLElement_ElementTreeExtensions.m */,
+				0E40B5EB20D1058300CA39FD /* CXMLNamespaceNode.h */,
+				0E40B5EC20D1058300CA39FD /* CXMLNamespaceNode.m */,
+				0E40B5ED20D1058300CA39FD /* CXMLNode.h */,
+				0E40B5EE20D1058300CA39FD /* CXMLNode.m */,
+				0E40B5EF20D1058300CA39FD /* CXMLNode_PrivateExtensions.h */,
+				0E40B5F020D1058300CA39FD /* CXMLNode_PrivateExtensions.m */,
+				0E40B5F120D1058300CA39FD /* CXMLNode_XPathExtensions.h */,
+				0E40B5F220D1058300CA39FD /* CXMLNode_XPathExtensions.m */,
+				0E40B5F320D1058300CA39FD /* CXMLUnsupportedNode.h */,
+				0E40B5F420D1058300CA39FD /* CXMLUnsupportedNode.m */,
+				0E40B5F520D1058300CA39FD /* Tidy */,
+				0E40B5F820D1058300CA39FD /* TouchXML.h */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		0E40B5DA20D1058300CA39FD /* Creation */ = {
+			isa = PBXGroup;
+			children = (
+				0E40B5DB20D1058300CA39FD /* CXMLDocument_CreationExtensions.h */,
+				0E40B5DC20D1058300CA39FD /* CXMLDocument_CreationExtensions.m */,
+				0E40B5DD20D1058300CA39FD /* CXMLNode_CreationExtensions.h */,
+				0E40B5DE20D1058300CA39FD /* CXMLNode_CreationExtensions.m */,
+			);
+			path = Creation;
+			sourceTree = "<group>";
+		};
+		0E40B5F520D1058300CA39FD /* Tidy */ = {
+			isa = PBXGroup;
+			children = (
+				0E40B5F620D1058300CA39FD /* CTidy.h */,
+				0E40B5F720D1058300CA39FD /* CTidy.m */,
+			);
+			path = Tidy;
+			sourceTree = "<group>";
+		};
 		0E666DB920BBE782009378A2 = {
 			isa = PBXGroup;
 			children = (
@@ -79,12 +213,15 @@
 		0E666DC420BBE782009378A2 /* LKReading */ = {
 			isa = PBXGroup;
 			children = (
+				0E01371120DA440200C8F552 /* tool */,
 				0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */,
 				0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */,
+				0E40B61820D1184400CA39FD /* 我欲封天.epub */,
 				0E666DC520BBE782009378A2 /* AppDelegate.swift */,
 				0E666DC720BBE782009378A2 /* ViewController.swift */,
 				0E666DD720BBE93A009378A2 /* LKReadModel.swift */,
 				0E666DD920BBED50009378A2 /* LKReadBookManager.swift */,
+				0E01370F20DA3D4C00C8F552 /* LKBookParsing.swift */,
 				0E666DDB20BBEEB7009378A2 /* LKReadViewController.swift */,
 				0E666DDD20BBF252009378A2 /* LKReadSingleViewController.swift */,
 				0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */,
@@ -94,6 +231,7 @@
 				0E666DCC20BBE782009378A2 /* Assets.xcassets */,
 				0E666DCE20BBE782009378A2 /* LaunchScreen.storyboard */,
 				0E666DD120BBE782009378A2 /* Info.plist */,
+				0E40B61120D10B6200CA39FD /* LKReading-Bridging-Header.h */,
 			);
 			path = LKReading;
 			sourceTree = "<group>";
@@ -101,6 +239,8 @@
 		468E9D8F2A4555CA64F401CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E40B61420D10CDC00CA39FD /* libz.tbd */,
+				0E40B61220D10CD500CA39FD /* libxml2.2.tbd */,
 				C696E3923434A855DA2DE628 /* Pods_LKReading.framework */,
 			);
 			name = Frameworks;
@@ -176,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E40B61920D1197700CA39FD /* 我欲封天.epub in Resources */,
 				0E50031520BF9FEC00D2F20A /* LKReadMenuView.xib in Resources */,
 				0E666DD020BBE782009378A2 /* LaunchScreen.storyboard in Resources */,
 				0EAB2E4320BD4F0A00E49805 /* 花开似瑾.txt in Resources */,
@@ -215,11 +356,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-LKReading/Pods-LKReading-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -233,14 +376,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E40B60A20D1058400CA39FD /* CXMLUnsupportedNode.m in Sources */,
 				0E666DDE20BBF252009378A2 /* LKReadSingleViewController.swift in Sources */,
+				0E40B60020D1058400CA39FD /* CXHTMLDocument.m in Sources */,
+				0E40B60220D1058400CA39FD /* CXMLDocument_PrivateExtensions.m in Sources */,
 				0E666DDC20BBEEB7009378A2 /* LKReadViewController.swift in Sources */,
 				0E50031320BF9FDC00D2F20A /* LKReadMenuView.swift in Sources */,
 				0E666DC820BBE782009378A2 /* ViewController.swift in Sources */,
 				0EAB2E4120BD310B00E49805 /* LKReadTheme.swift in Sources */,
 				0E666DC620BBE782009378A2 /* AppDelegate.swift in Sources */,
+				0E40B60B20D1058400CA39FD /* CTidy.m in Sources */,
+				0E40B60820D1058400CA39FD /* CXMLNode_PrivateExtensions.m in Sources */,
+				0E01371020DA3D4C00C8F552 /* LKBookParsing.swift in Sources */,
+				0E01371520DA442E00C8F552 /* GTMNSString+HTML.m in Sources */,
 				0E666DD820BBE93A009378A2 /* LKReadModel.swift in Sources */,
+				0E40B60720D1058400CA39FD /* CXMLNode.m in Sources */,
+				0E40B60920D1058400CA39FD /* CXMLNode_XPathExtensions.m in Sources */,
+				0E40B5FF20D1058400CA39FD /* CXMLNode_CreationExtensions.m in Sources */,
+				0E40B5FE20D1058400CA39FD /* CXMLDocument_CreationExtensions.m in Sources */,
+				0E40B60320D1058400CA39FD /* CXMLElement.m in Sources */,
 				0E666DDA20BBED50009378A2 /* LKReadBookManager.swift in Sources */,
+				0E40B60120D1058400CA39FD /* CXMLDocument.m in Sources */,
+				0E40B60420D1058400CA39FD /* CXMLElement_CreationExtensions.m in Sources */,
+				0E40B60620D1058400CA39FD /* CXMLNamespaceNode.m in Sources */,
+				0E40B60520D1058400CA39FD /* CXMLElement_ElementTreeExtensions.m in Sources */,
+				0E40B5FD20D1058400CA39FD /* NSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,10 +539,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = LKReading/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kLike.LKReading;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LKReading/LKReading-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -394,10 +556,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = LKReading/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kLike.LKReading;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LKReading/LKReading-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

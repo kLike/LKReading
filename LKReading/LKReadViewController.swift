@@ -87,7 +87,7 @@ class LKReadViewController: UIViewController {
     
     private func loadBook() {
         if let bookUrlStr = bookUrlStr {
-            LKBookManager().loadBook(bookUrlStr: bookUrlStr) { (readModel, chapters) in
+            LKBookManager.loadBook(bookUrlStr: bookUrlStr) { (readModel, chapters) in
                 self.bookModel = readModel
                 if let chapters = chapters { // 第一次解析
                     self.chapters = chapters
@@ -182,7 +182,7 @@ class LKReadViewController: UIViewController {
         }
         if chapterModel.themeVersion != LKReadTheme.share.themeVersion {
             if chapterModel.content.count > 0 {
-                let pageContentArr = LKBookManager().divideChapter(content: chapterModel.content)
+                let pageContentArr = LKBookManager.divideChapter(content: chapterModel.content)
                 if let chapters = chapters {
                     chapters[chapterId]?.pageContentArr.removeAll()
                     chapters[chapterId]?.pageContentArr.append(objectsIn: pageContentArr)

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8CCD154943BC9A2BE98D8696E5FB80CB"
+               BlueprintIdentifier = "3720D603BF29A3E5D1DDB18F51FCA478"
                BuildableName = "Pods_LKReading.framework"
                BlueprintName = "Pods-LKReading"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8CCD154943BC9A2BE98D8696E5FB80CB"
+            BlueprintIdentifier = "3720D603BF29A3E5D1DDB18F51FCA478"
             BuildableName = "Pods_LKReading.framework"
             BlueprintName = "Pods-LKReading"
             ReferencedContainer = "container:Pods.xcodeproj">

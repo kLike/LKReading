@@ -8,5 +8,6 @@ target 'LKReading' do
   # Pods for LKReading
   
   pod 'RealmSwift'
-
+  pod 'Zip', '~> 1.1'
+  
 end
