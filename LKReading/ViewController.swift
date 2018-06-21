@@ -21,7 +21,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func beginReading(_ sender: UIButton) {
-        if let urlStr = Bundle.main.path(forResource: "我欲封天", ofType: "epub") {
+        if let bookName = sender.titleLabel?.text?.components(separatedBy: ".").first,
+           let bookType = sender.titleLabel?.text?.components(separatedBy: ".").last,
+           let urlStr = Bundle.main.path(forResource: bookName, ofType: bookType) {
             let readVc = LKReadViewController()
             readVc.bookUrlStr = urlStr
             present(readVc, animated: true, completion: nil)

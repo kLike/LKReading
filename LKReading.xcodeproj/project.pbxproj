@@ -40,7 +40,6 @@
 		0E666DDE20BBF252009378A2 /* LKReadSingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E666DDD20BBF252009378A2 /* LKReadSingleViewController.swift */; };
 		0EAB2E4120BD310B00E49805 /* LKReadTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */; };
 		0EAB2E4320BD4F0A00E49805 /* 花开似瑾.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */; };
-		0EB1374120C65CFF00391ADF /* 重生西游之齐天大圣.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */; };
 		5E41B4E376B767493991FD2F /* Pods_LKReading.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C696E3923434A855DA2DE628 /* Pods_LKReading.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,7 +98,6 @@
 		0E666DDD20BBF252009378A2 /* LKReadSingleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadSingleViewController.swift; sourceTree = "<group>"; };
 		0EAB2E4020BD310B00E49805 /* LKReadTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKReadTheme.swift; sourceTree = "<group>"; };
 		0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "花开似瑾.txt"; sourceTree = "<group>"; };
-		0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "重生西游之齐天大圣.txt"; sourceTree = "<group>"; };
 		5A33EAD797F90F84B79D5AE1 /* Pods-LKReading.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKReading.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LKReading/Pods-LKReading.debug.xcconfig"; sourceTree = "<group>"; };
 		A6A605AF7338F1FEFDA6E9EB /* Pods-LKReading.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKReading.release.xcconfig"; path = "Pods/Target Support Files/Pods-LKReading/Pods-LKReading.release.xcconfig"; sourceTree = "<group>"; };
 		C696E3923434A855DA2DE628 /* Pods_LKReading.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LKReading.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				0E01371120DA440200C8F552 /* tool */,
-				0EB1374020C65CFF00391ADF /* 重生西游之齐天大圣.txt */,
 				0EAB2E4220BD4F0A00E49805 /* 花开似瑾.txt */,
 				0E40B61820D1184400CA39FD /* 我欲封天.epub */,
 				0E666DC520BBE782009378A2 /* AppDelegate.swift */,
@@ -322,7 +319,6 @@
 				0EAB2E4320BD4F0A00E49805 /* 花开似瑾.txt in Resources */,
 				0E666DCD20BBE782009378A2 /* Assets.xcassets in Resources */,
 				0E666DCB20BBE782009378A2 /* Main.storyboard in Resources */,
-				0EB1374120C65CFF00391ADF /* 重生西游之齐天大圣.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

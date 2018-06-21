@@ -15,6 +15,8 @@ class LKReadSingleViewController: UIViewController {
     lazy var contentView: LKReadSingleView = {
         let contentView = LKReadSingleView(frame: view.bounds)
         view.addSubview(contentView)
+        loadingView.stopAnimating()
+        loadingView.removeFromSuperview()
         return contentView
     }()
     
@@ -24,6 +26,8 @@ class LKReadSingleViewController: UIViewController {
         view.sendSubview(toBack: iv)
         return iv
     }()
+    
+    var loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     convenience init(content: String?, position: ReadingPosition? = nil) {
         self.init()
@@ -38,6 +42,9 @@ class LKReadSingleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         renewBackImg()
+        loadingView.center = view.center
+        loadingView.startAnimating()
+        view.addSubview(loadingView)
     }
     
     func renewBackImg() {
