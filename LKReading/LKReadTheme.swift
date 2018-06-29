@@ -20,7 +20,7 @@ struct LKReadTheme {
     
     static var share = LKReadTheme()
     
-    var edgeRect: CGRect = CGRect(x: 15, y: 40, width: kScreenW - 30, height: kScreenH - 40 - 64)
+    var edgeRect: CGRect = CGRect(x: 15, y: 20, width: kScreenW - 30, height: kScreenH - 20 - kStatusBarH - 15)
     
     var fontSize: CGFloat = 15 {
         didSet { 

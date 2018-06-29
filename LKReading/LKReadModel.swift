@@ -16,6 +16,7 @@ class LKReadModel: Object, NSCopying {
     @objc dynamic var readingPosition: ReadingPosition? = nil
 //    let chapters = List<LKReadChapterModel>()
     @objc dynamic var firstChapterId: String?
+    @objc dynamic var isNetBook: Bool = false
     
     override class func primaryKey() -> String? {
         return "bookId"
@@ -26,6 +27,7 @@ class LKReadModel: Object, NSCopying {
         model.bookId = bookId
         model.readingPosition = readingPosition
         model.firstChapterId = firstChapterId
+        model.isNetBook = isNetBook
         return model
     }
 }

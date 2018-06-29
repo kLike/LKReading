@@ -27,15 +27,26 @@ class LKReadSingleViewController: UIViewController {
         return iv
     }()
     
+    lazy var chapterTitleLabel: UILabel = {
+        let lab = UILabel(frame: CGRect(x: 15, y: kStatusBarH - 15, width: kScreenW - 30, height: 20))
+        lab.textColor = UIColor.colorFromHex(0x999999)
+        lab.font = UIFont.systemFont(ofSize: 12)
+        view.addSubview(lab)
+        return lab
+    }()
+    
     var loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
-    convenience init(content: String?, position: ReadingPosition? = nil) {
+    convenience init(content: String? = nil, position: ReadingPosition? = nil, chapterTitle: String? = nil) {
         self.init()
         if let content = content {
             self.contentView.content = content
         }
         if let position = position {
             self.position = position
+        }
+        if let title = chapterTitle {
+            self.chapterTitleLabel.text = title
         }
     }
     

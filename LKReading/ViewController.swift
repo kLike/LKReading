@@ -24,11 +24,16 @@ class ViewController: UIViewController {
         if let bookName = sender.titleLabel?.text?.components(separatedBy: ".").first,
            let bookType = sender.titleLabel?.text?.components(separatedBy: ".").last,
            let urlStr = Bundle.main.path(forResource: bookName, ofType: bookType) {
+            //本地小说
             let readVc = LKReadViewController()
             readVc.bookUrlStr = urlStr
             present(readVc, animated: true, completion: nil)
+        } else {
+            //网络小说(模拟)
+            let readVc = LKReadViewController()
+            readVc.bookId = "netBook"
+            present(readVc, animated: true, completion: nil)
         }
-        
     }
     
 }
