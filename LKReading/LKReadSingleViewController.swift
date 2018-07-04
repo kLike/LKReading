@@ -35,15 +35,26 @@ class LKReadSingleViewController: UIViewController {
         return lab
     }()
     
+    lazy var chapterPageLabel: UILabel = {
+        let lab = UILabel(frame: CGRect(x: 25, y: kScreenH - 20, width: 50, height: 20))
+        lab.textColor = UIColor.colorFromHex(0x999999)
+        lab.font = UIFont.systemFont(ofSize: 12)
+        view.addSubview(lab)
+        return lab
+    }()
+    
     var loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
-    convenience init(content: String? = nil, position: ReadingPosition? = nil, chapterTitle: String? = nil) {
+    convenience init(content: String? = nil, position: ReadingPosition? = nil, chapterTitle: String? = nil, chapterPageCount: Int? = 0) {
         self.init()
         if let content = content {
             self.contentView.content = content
         }
         if let position = position {
             self.position = position
+            if let chapterPageCount = chapterPageCount {
+                self.chapterPageLabel.text = "\(position.page + 1) / \(chapterPageCount)"
+            }
         }
         if let title = chapterTitle {
             self.chapterTitleLabel.text = title

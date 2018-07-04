@@ -133,7 +133,6 @@ class LKBookParsing: NSObject {
             }
         } catch {
             print("epubPathToOpfPath went wrong")
-            //            SwiftNotice.showText("epubPathToOpfPath went wrong")
         }
         return nil
     }
@@ -171,7 +170,6 @@ class LKBookParsing: NSObject {
                                             return
                                         } catch {
                                             print("parseOpfFile went wrong")
-                                            //                                            SwiftNotice.showText("parseOpfFile went wrong")
                                         }
                                     }
                                 })
@@ -184,7 +182,6 @@ class LKBookParsing: NSObject {
                         }
                     } catch {
                         print("parseOpfFile went wrong")
-                        //                        SwiftNotice.showText("parseOpfFile went wrong")
                     }
                 })
                 let itemRefsArr = try document.nodes(forXPath: "//opf:itemref", namespaceMappings: ["opf": "http://www.idpf.org/2007/opf"])
@@ -192,23 +189,18 @@ class LKBookParsing: NSObject {
                     let readModel = LKReadModel()
                     readModel.bookId = bookId
                     var chapters = [String: LKReadChapterModel]()
-                    //                    readModel.isLocalBook = true
                     itemRefsArr.enumerated().forEach({ (index, element) in
-                        //                        guard index < 10 else { return }
                         if let idref = element.attribute(forName: "idref").stringValue(), let chapHref = itemsDic[idref] {
                             let model = LKReadChapterModel()
                             model.title = titleDic[chapHref] ?? ""
                             model.bookId = bookId
                             model.id = String(index)
                             model.bookChapterId = (model.bookId ?? "") + model.id!
-                            //                            model.chapter_position = String(index)
                             do {
                                 let conData = try Data.init(contentsOf: pathUrl.deletingLastPathComponent().appendingPathComponent(chapHref))
                                 let html = String.init(data: conData, encoding: String.Encoding.utf8)
                                 model.content = html?.convertingHTMLToPlainText() ?? ""
-                            } catch {
-                                //                                SwiftNotice.showText("parseOpfFile went wrong")
-                            }
+                            } catch { }
                             model.lastChapterId = String(index - 1)
                             model.nextChapterId = String(index + 1)
                             if index == 0 {
@@ -226,7 +218,6 @@ class LKBookParsing: NSObject {
             }
         } catch {
             print("parseOpfFile went wrong")
-            //            SwiftNotice.showText("parseOpfFile went wrong")
         }
     }
     
